@@ -2,6 +2,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set novisualbell
+let mapleader=","
 
 " NUMBERING " 
 set number relativenumber
@@ -21,8 +22,43 @@ set backspace=indent,eol,start
 inoremap <C-U> <C-G>u<C-U>
 
 set autoindent		" always set autoindenting on
-set tabstop=4
-set shiftwidth=4
+set tabstop=4		" visual rep of tabs
+set expandtab		" tabs are spaces
+set shiftwidth=4	" shift width is 4 with >> or <<
+set shiftround		" shift works with >>
+set showmatch		" parenthesis matching
+set matchtime=3		" parenthesis matching
+set wildmenu		" enhanced menu for cmd
+set cursorline		" show cursor line
+set hlsearch		" hightlight search
+set incsearch		" include search as you type
+
+
+" delete line in insertmode
+inoremap <c-d> <esc>ddO
+
+" uppercase in insertmode
+inoremap <c-u> <esc>lviwU
+
+" undo highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" movement to beginning/end of line
+nnoremap H ^
+nnoremap L $
+nnoremap ^ <nop>
+nnoremap $ <nop>
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" edit vim file fast
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 
 " textwidth to 80 and color line
 set textwidth=80
@@ -55,5 +91,14 @@ Plug 'yuttie/comfortable-motion.vim'
 
 " Emmet HTML plugin "
 Plug 'mattn/emmet-vim'
+
+" ALE Linting
+Plug 'w0rp/ale'
+
+" Multiline cursor
+Plug 'terryma/vim-multiple-cursors'
+
+" Surrounding 
+Plug 'tpope/vim-surround'
 
 call plug#end()
