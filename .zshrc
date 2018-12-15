@@ -3,6 +3,7 @@
 export TERM="xterm-256color"
  #Path to your oh-my-zsh installation.
 export ZSH=/Users/robertchung/.oh-my-zsh
+export EDITOR='vim'
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -15,17 +16,30 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm node_version)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon virtualenv dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_ROOT_ICON="\uF09C"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+POWERLEVEL9K_VCS_GIT_ICON='\uF408 '
+POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF408 '
 
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
 POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=004 # 075
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+POWERLEVEL9K_VIRTUALENV_BACKGROUND=055
+POWERLEVEL9K_VIRTUALENV_FOREGROUND=106
+POWERLEVEL9K_ROOT_ICON="\uF09C"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+
 ZSH_THEME="powerlevel9k/powerlevel9k"
+
+ZSH_DISABLE_COMPFIX=true
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -47,10 +61,10 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -69,8 +83,15 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
+plugins=(
+  git
+  iterm2
+  man
+  osx
+  python
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
