@@ -6,9 +6,13 @@ set novisualbell
 let mapleader=","
 let maplocalleader = "\\"
 
+let g:material_terminal_italics = 1
+let g:airline_theme = 'material'
 
+highlight Comment cterm=italic
 
-
+set background=dark
+colorscheme material
 
 " =============== VUNDLE ======================= " 
 " set the runtime path to include Vundle and initialize
@@ -27,15 +31,23 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" Palenight theme
+Plugin 'drewtempelmeyer/palenight.vim'
+
+" Kolor theme Plugin 'zeis/vim-kolor'
+
+" Material theme
+Plugin 'kaicataldo/material.vim'
 
 " Smooth Scrolling "
 Plugin 'yuttie/comfortable-motion.vim'
@@ -67,6 +79,20 @@ Plugin 'ludovicchabant/vim-gutentags'
 
 " NerdCommenter
 Plugin 'scrooloose/nerdcommenter' 
+
+" Git gutter (what changed and additions, etc)
+Plugin 'airblade/vim-gitgutter'
+
+" Vim target
+Plugin 'wellle/targets.vim'
+
+" NerdTree
+Plugin 'scrooloose/nerdtree'
+
+" Highlighting
+Plugin 'sheerun/vim-polyglot'
+
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -128,11 +154,15 @@ inoremap <c-u> <esc>lviwU
 " undo highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
+" Open nerdtree
+nnoremap <leader>. :NERDTreeToggle<CR>
+nnoremap <leader>v. :NERDTreeVCS<CR>
+
 " movement to beginning/end of line
-nnoremap H ^
-nnoremap L $
-nnoremap ^ <nop>
-nnoremap $ <nop>
+"nnoremap H ^
+"nnoremap L $
+"nnoremap ^ <nop>
+"nnoremap $ <nop>
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -166,9 +196,19 @@ set laststatus=2
 set t_Co=256
 " END POWERLINE "
 
-
 " Using fzf
 set rtp+=/usr/local/opt/fzf
 
 " Tagging
 set tags=tags
+
+" GitGutter settings
+set updatetime=100
+
+
+" True colors and italics
+"let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+if (has("termguicolors"))
+  set termguicolors
+endif
