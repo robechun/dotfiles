@@ -3,7 +3,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/robechun/Librar
 
 export TERM="xterm-256color"
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/robechun/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 export EDITOR='vim'
 
 alias mw="mwinit -o"
