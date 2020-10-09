@@ -1,20 +1,21 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-filetype off
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" To italicize comments
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
 set novisualbell
 let mapleader=","
 let maplocalleader = "\\"
 
 let g:material_terminal_italics = 1
-let g:airline_theme = 'material'
+let g:airline_theme = 'cool'
 
-highlight Comment cterm=italic
+highlight Comment cterm=italic gui=italic
 
 set background=dark
-colorscheme material
 
-" =============== VUNDLE ======================= " 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -24,22 +25,11 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" Airline (Powerline for vim)
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Palenight theme
 Plugin 'drewtempelmeyer/palenight.vim'
@@ -50,7 +40,7 @@ Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'kaicataldo/material.vim'
 
 " Smooth Scrolling "
-Plugin 'yuttie/comfortable-motion.vim'
+"Plugin 'yuttie/comfortable-motion.vim'
 
 " Emmet HTML plugin "
 Plugin 'mattn/emmet-vim'
@@ -61,15 +51,12 @@ Plugin 'w0rp/ale'
 " Multiline cursor
 Plugin 'terryma/vim-multiple-cursors'
 
-" Surrounding 
+" Surrounding
 Plugin 'tpope/vim-surround'
 
 " vim LSP
 Plugin 'prabirshrestha/async.vim'
 Plugin 'prabirshrestha/vim-lsp'
-
-" YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
 
 " C++ Extended Syntax Highlight
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -78,7 +65,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'ludovicchabant/vim-gutentags'
 
 " NerdCommenter
-Plugin 'scrooloose/nerdcommenter' 
+Plugin 'scrooloose/nerdcommenter'
 
 " Git gutter (what changed and additions, etc)
 Plugin 'airblade/vim-gitgutter'
@@ -92,27 +79,14 @@ Plugin 'scrooloose/nerdtree'
 " Highlighting
 Plugin 'sheerun/vim-polyglot'
 
-
-
+" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
+colorscheme material
+let g:material_theme_style = 'palenight'
 
-
-
-
-" NUMBERING " 
+" NUMBERING "
 set number relativenumber
 
 augroup numbertoggle
@@ -120,7 +94,7 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-" END NUMBERING " 
+" END NUMBERING "
 
 " vim ISort for Python
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
@@ -140,7 +114,7 @@ set shiftround		" shift works with >>
 set showmatch		" parenthesis matching
 set matchtime=3		" parenthesis matching
 set wildmenu		" enhanced menu for cmd
-set cursorline		" show cursor line
+"set cursorline		" show cursor line
 set hlsearch		" hightlight search
 set incsearch		" include search as you type
 
@@ -190,11 +164,7 @@ endif
 
 syntax on
 
-" Vim Powerline "
-set rtp+=/Users/robertchung/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
-set laststatus=2
-set t_Co=256
-" END POWERLINE "
+" POWERLINE TODO"
 
 " Using fzf
 set rtp+=/usr/local/opt/fzf
