@@ -1,0 +1,184 @@
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa
+
+Host clouddesk-new
+	HostName dev-dsk-robechun-2b-79e43ab8.us-west-2.amazon.com
+    ProxyCommand none
+	User robechun
+
+Host clouddesk
+	HostName robechun-cloud.aka.corp.amazon.com
+  ProxyCommand none
+  Compression yes
+	User robechun
+
+Host timber
+	HostName aws-pay-timber-1b-5cc88c14.us-east-1.amazon.com
+    ProxyCommand ssh -W %h:%p security-bastions-prod-iad.amazon.com
+
+Host timber-dub
+	HostName aws-pay-timber-1b-3d8d8a4e.eu-west-1.amazon.com
+    ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
+
+Host timber-pdx
+	HostName aws-pay-timber-2a-6692dff7.us-west-2.amazon.com
+    ProxyCommand ssh -W %h:%p security-bastions-prod-pdx.amazon.com
+
+Host ops
+  HostName aws-pmt-ops-1a-prod-53e65f8d.us-east-1.amazon.com
+    ProxyCommand ssh -W %h:%p security-bastions-prod-iad.amazon.com
+
+# Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
+# for details and contact information.
+
+# Do not try to proxy when going straight to a bastion host
+host security-bastions-prod*
+        ProxyCommand none
+
+host *.corp.amazon.com *.corp.amazon.com. *corp*.amazon.com *corp*.amazon.com. *.desktop.amazon.com *.desktop.amazon.com. dev-dsk-*.amazon.com dev-dsk-*.amazon.com. *integ*.amazon.com *integ*.amazon.com. *sealab*.amazon.com *sealab*.amazon.com. *-i-d-*.amazon.com *-i-pd-*.amazon.com aws-payments-*.amazon.com. aws-paydex-*.amazon.com
+        ProxyCommand none
+
+# Configuration for db.amazon.com CNAMEs. We need to identify where the end host
+# is via DNS in order to pick the right bastion
+host *.db*.amazon.com *.db? *.db?? .db
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-`echo %h | xargs host | grep alias | awk '{print $6}' | awk -F. '{print $2}' | sed -E 's/[0-9]{1,}$//' | tail -n 1`.amazon.com
+
+# Configuration for DUB/LUX/EU-WEST-1
+host *.dub*.amazon.com *.dub*.amazon.com. *.dub? *.dub?? *.lux*.amazon.com *.lux*.amazon.com. *.lux? *.lux?? *.eu-west-1.amazon.com *.eu-west-1.amazon.com. *.eu-west-1
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
+
+# Configuration for GRU
+host !bastion* *.gru*.amazon.com *.gru*.amazon.com. *.gru? *.gru??
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-gru.amazon.com
+
+# Configuration for IAD/VDC/EDGE/US-EAST-1
+host *.iad*.amazon.com *.iad*.amazon.com. *.iad? *.iad?? *.vdc.amazon.com *.vdc.amazon.com. *.vdc *.e-???* *.g-???* *.us-east-1.amazon.com *.us-east-1.amazon.com. *.us-east-1
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-iad.amazon.com
+
+# Configuration for NRT/AP-NORTHEAST-1
+host *.nrt*.amazon.com *.nrt*.amazon.com. *.nrt? *.nrt?? *.ap-northeast-1.amazon.com *.ap-northeast-1.amazon.com. *.ap-northeast-1
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-nrt.amazon.com
+
+# Configuration for PDX/US-WEST-2
+host *.pdx*.amazon.com *.pdx*.amazon.com. *.pdx? *.pdx?? *.us-west-2.amazon.com *.us-west-2.amazon.com. *.us-west-2
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-pdx.amazon.com
+
+# Configuration for PEK
+host *.pek*.amazon.com *.pek*.amazon.com. *.pek? *.pek?? *.cn-north-1.amazon.com *.cn-north-1.amazon.com. *.cn-north-1
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-pek.amazon.com
+
+# Configuration for SEA
+host *.sea*.amazon.com *.sea*.amazon.com. *.sea? *.sea??
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-sea.amazon.com
+
+# Configuration for SFO
+host !bastion* *.sfo*.amazon.com *.sfo*.amazon.com. *.sfo? *.sfo??
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-sfo.amazon.com
+
+# Configuration for SIN/AP-SOUTHEAST-1
+host !bastion* *.sin*.amazon.com *.sin*.amazon.com. *.sin? *.sin?? *.ap-southeast-1.amazon.com *.ap-southeast-1.amazon.com. *.ap-southeast-1
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-sin.amazon.com
+
+# Configuration for SYD
+host !bastion* *.syd*.amazon.com *.syd*.amazon.com. *.syd? *.syd??
+        HostName %h
+        ProxyCommand ssh -W %h:%p security-bastions-prod-syd.amazon.com
+
+# Configuration for FRA
+host !bastion* *.fra*.amazon.com *.fra*.amazon.com. *.fra? *.fra??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-fra.amazon.com
+
+# Configuration for BJS/CN-NORTH-1
+host !bastion* *.bjs*.amazon.com *.bjs*.amazon.com. *.bjs? *.bjs?? 
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-bjs.amazon.com
+
+# Configuration for ICN
+host !bastion* *.icn*.amazon.com *.icn*.amazon.com. *.icn? *.icn??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-icn.amazon.com
+
+# Configuration for ZHY
+host !bastion* *.zhy*.amazon.com *.zhy*.amazon.com. *.zhy? *.zhy??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-zhy.amazon.com
+
+# Configuration for BOM
+host !bastion* *.bom*.amazon.com *.bom*.amazon.com. *.bom? *.bom??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-bom.amazon.com
+
+# Configuration for CMH
+host !bastion* *.cmh*.amazon.com *.cmh*.amazon.com. *.cmh? *.cmh??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-cmh.amazon.com
+
+# Configuration for LHR
+host !bastion* *.lhr*.amazon.com *.lhr*.amazon.com. *.lhr? *.lhr??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-lhr.amazon.com
+
+# Configuration for YUL
+host !bastion* *.yul*.amazon.com *.yul*.amazon.com. *.yul? *.yul??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-yul.amazon.com
+
+# Configuration for PDT
+host !bastion* *.pdt*.amazon.com *.pdt*.amazon.com. *.pdt? *.pdt??
+        HostName %h
+        ProxyCommand mssh bastion-pdt.amazon.com nc %h %p
+
+# Configuration for CDG
+host !bastion* *.cdg*.amazon.com *.cdg*.amazon.com. *.cdg? *.cdg??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-cdg.amazon.com
+
+# Configuration for MXP
+host !bastion* *.mxp*.amazon.com *.mxp*.amazon.com. *.mxp? *.mxp??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-mxp.amazon.com
+
+# Configuration for KIX
+host !bastion* *.kix*.amazon.com *.kix*.amazon.com. *.kix? *.kix??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-kix.amazon.com
+
+# Configuration for OSU
+host !bastion* *.osu*.amazon.com *.osu*.amazon.com. *.osu? *.osu??
+        HostName %h
+        ProxyCommand mssh bastion-osu.amazon.com nc %h %p
+
+# Configuration for ARN
+host !bastion* *.arn*.amazon.com *.arn*.amazon.com. *.arn? *.arn??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-arn.amazon.com
+
+# Configuration for HKG
+host !bastion* *.hkg*.amazon.com *.hkg*.amazon.com. *.hkg? *.hkg??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-hkg.amazon.com
+
+# Configuration for BAH
+host !bastion* *.bah*.amazon.com *.bah*.amazon.com. *.bah? *.bah??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-bah.amazon.com
+
+# Configuration for CPT
+host !bastion* *.cpt*.amazon.com *.cpt*.amazon.com. *.cpt? *.cpt??
+        HostName %h
+        ProxyCommand ssh -W %h:%p bastion-cpt.amazon.com
+
+# End Prod Bastion config
