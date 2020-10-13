@@ -33,6 +33,11 @@ alias bws='brazil ws'
 alias bwsp='brazil ws --use -p'
 alias bwsvs='brazil ws --use -vs'
 
+# misc other commands
+alias zz="vim ~/.zshrc"
+alias tt="vim ~/.tmux.conf.local"
+alias vv="vim ~/.config/nvim/init.vim"
+
 
 ZSH_THEME=powerlevel10k/powerlevel10k
 
