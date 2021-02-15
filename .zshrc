@@ -1,17 +1,12 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/robechun/Library/Python/3.7/bin
+export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/$USER/Library/Python/3.7/bin
 
 export TERM="xterm-kitty"
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/robechun/.oh-my-zsh"
+export ZSH="/Users/$USER/.oh-my-zsh"
 export EDITOR='vim'
 
 #alias ssh="kitty +kitten ssh"
-
-# amazon stuff
-alias mw="mwinit -o"
-alias cl="ssh clouddesk"
-
 alias ssh="python3 ~/.config/kitty/sshTic.py" 
 
 # vim/tmux
@@ -25,13 +20,6 @@ alias tls='tmux ls'
 # ssh stuff
 alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
 alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.amazonaws.com"
-
-# brazil stuff
-alias bb=brazil-build
-alias br='brazil-recursive-cmd --allPackages brazil-build'
-alias bws='brazil ws'
-alias bwsp='brazil ws --use -p'
-alias bwsvs='brazil ws --use -vs'
 
 # misc other commands
 alias zz="vim ~/.zshrc"
