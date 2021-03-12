@@ -8,7 +8,6 @@ if !exists('g:vscode')
 let g:python3_host_prog = '/usr/bin/python3'
 set encoding=UTF-8
 
-
 " Allow for file type detection
 filetype plugin indent on
 
@@ -19,62 +18,70 @@ let maplocalleader = "\\"
 " ========================================================================= " 
 " ====                         PLUGIN CONFIG                           ==== "
 " ========================================================================= " 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp +=~/.vim
+call plug#begin('~/.vim/plugged')
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
 " NerdTree
-Plugin 'preservim/nerdtree'
+Plug 'preservim/nerdtree'
 
 " Git stuff
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Vim status bar
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Emmet HTML plugin
-" Plugin 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 
 " Vim surrond
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Commenting
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 
 " TODO might not need with fugitive: git gutter
-"Plugin 'mhinz/vim-signify'
+"Plug 'mhinz/vim-signify'
 
 " Better Targeting of text objects
-Plugin 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 
 " fuzzyfind
-Plugin 'junegunn/fzf'
+Plug 'junegunn/fzf'
 
 " Autocomplete/Intellisense
-Plugin 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim'
 
 " FZF and stuff real easy
-Plugin 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+"Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
-" Denite is an interface for
-"Plugin 'Shougo/denite.nvim'
-
-" TODO: silver searcher ag or ack
 " TODO: syntax highlighting things
 
 " Theme of text editor
-Plugin 'morhetz/gruvbox'
-
-" Show function signature completions in command line
-Plugin 'Shougo/echodoc.vim'
+Plug 'morhetz/gruvbox'
 
 " Icons for stuff
-Plugin 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
+" Typescript syntax highlighting
+Plug 'leafgarland/typescript-vim'
 
-call vundle#end()
+" Javascript syntax hightlighting
+Plug 'pangloss/vim-javascript'
+
+" Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Function params help
+Plug 'Shougo/echodoc.vim'
+
+call plug#end()
 
 " FZF setup to work with vim
 set rtp+=/usr/local/opt/fzf
@@ -87,32 +94,17 @@ set updatetime=100
 
 
 "" ============================= "
-"" ======     LEADERF     ====== "
+"" ======    TELESCOPE    ====== "
+"" ============================= "
+" configs found in telescope.vim
+
+
+"" ============================= "
+"" ======     EchoDoc     ====== "
 "" ============================= "
 
-" popup mode
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+"let g:echodoc#enable_at_startup = 1
 
-" Shortcuts
-"
-"   <C-p>      --- normal file searching use-case
-"   <leader>b  --- searching within open buffers
-"   <C-F>      --- find within text (cmd-shift-f) in IntelliJ
-let g:Lf_ShortcutF = "<C-p>"
-noremap <leader>b :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e ")<CR>
-
-" Make split more intuitive
-"
-"   <C-l>      --- split vertical
-"   <C-h>      --- split horizontal
-let g:Lf_CommandMap = {
-  \   '<C-]>': ['<C-l>'],
-  \   '<C-x>': ['<C-h>'],
-  \}
 
 
 " ============================ "
@@ -130,7 +122,9 @@ let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir
 
 " Open nerdtree
 nnoremap <leader>. :NERDTreeToggle<CR>
+nnoremap <leader>m :NERDTreeFind<CR>
 nnoremap <leader>v. :NERDTreeVCS<CR>
+
 
 
 
@@ -140,22 +134,57 @@ nnoremap <leader>v. :NERDTreeVCS<CR>
 
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_extensions = ['branch', 'hunks', 'coc']
+
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" TODO HOW TO CONFIGURE THIS CORRECTLY???
+let g:bufferline_inactive_highlight = 'airline_c'
+let g:bufferline_active_highlight = 'bufferline_selected'
+let g:bufferline_active_buffer_left = ''
+let g:bufferline_active_buffer_right = ''
+
+"let g:bufferline_separator = g:airline_symbols.space
+
+"let g:airline#extensions#tabline#buf_label_first = 1
+"let g:airline#extensions#tabline#show_close_button = 0
+"let g:airline#extensions#tabline#alt_sep = 1
+"let g:airline#extensions#tabline#tab_nr_type = 2
+"let g:airline#extensions#tabline#show_tab_nr = 1
+
+"" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"let g:airline_extensions = ['branch', 'hunks', 'coc']
 
 " Update section z to just have line number
 let g:airline_section_z = airline#section#create(['linenr'])
 
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+" let g:airline_statusline_ontop = 1
 
-" Enable powerline fonts
+"" Enable powerline fonts
 let g:airline_powerline_fonts = 1
 
 
 " ============================ "
 " ========     COC    ======== "
 " ============================ "
+
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ ]
+
+" from readme
+" if hidden is not set, TextEdit might fail.
+set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
 
 " use <tab> for trigger completion and navigate to next complete item
 function! s:check_back_space() abort
@@ -169,11 +198,36 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 
 
-" ============================ "
-" ======     EchoDoc     ===== "
-" ============================ "
-" Enable echodoc on startup
-let g:echodoc#enable_at_startup = 1
+nmap <leader>ac  <Plug>(coc-codeaction)
+
+" Quick fix
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
 
 
 
@@ -209,6 +263,7 @@ set noshowmode      " Don't dispay mode in command line (airilne already shows i
 set winbl=10        " Set floating window to be slightly transparent
 set ignorecase      " ignore case when searching
 set smartcase       " if the search string has an upper case letter in it, the search will be case sensitive
+set splitright      " have vs split right instead of left 
 
 
 " undo highlight

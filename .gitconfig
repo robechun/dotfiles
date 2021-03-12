@@ -1,0 +1,56 @@
+[user]
+	name = Robert Chung
+	email = robertchung97@gmail.com
+#[credential]
+    #helper = osxkeychain
+
+[alias]
+  lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  # Display recent branches, and then check out the selected branch
+  cr = !git for-each-ref --sort=-committerdate --format='%(committerdate:relative): %(refname:short)' refs/heads/ | head -n 10 | fzf| cut -d':' -f2 | xargs git checkout
+
+[color]
+  ui = always
+
+[core]
+  excludesfile = ~/.gitignore
+  pager = delta
+
+
+[delta]
+  plus-style = "syntax #012800"
+  minus-style = "syntax #340001"
+  syntax-theme = Monokai Extended
+
+[interactive]
+  diffFilter = delta --color-only
+
+[help]
+  autocorrect = 1
+
+# push easily. http://stackoverflow.com/a/23918418/89484
+[push]
+  default = current
+
+# For private data (username / github token / etc)
+[include]
+  path = ~/.gitconfig.local
+
+# Force all new branches to automatically use rebase
+[pull]
+  rebase = true
+
+# Automatic housekeeping
+[fetch]
+  prune = true
+
+[stash]
+  showPatch = true
+
+[merge]
+  ff = false
+
+# Histogram is (unnoticeably) slower, but it generates much cleaner diffs
+[diff]
+  algorithm = histogram
+

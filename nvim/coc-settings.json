@@ -1,2 +1,6 @@
 {
+    "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript"],
+    "tsserver.npm": "/Users/robertchung/.nvm/versions/node/v12.20.1/bin/npm",
+    "tsserver.disableAutomaticTypeAcquisition": true,
+    "suggest.echodocSupport": true
 }
