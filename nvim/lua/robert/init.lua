@@ -1,2 +1,6 @@
 require("robert.telescope")
-
+require("robert.completion")
+require("robert.lsp")
+require("robert.colorizer")
+require("robert.bufferline")
+require("robert.nvim_tree")

@@ -18,13 +18,12 @@ let maplocalleader = "\\"
 " ========================================================================= " 
 " ====                         PLUGIN CONFIG                           ==== "
 " ========================================================================= " 
-" set rtp +=~/.vim
 call plug#begin('~/.vim/plugged')
-" let Vundle manage Vundle, required
-Plug 'VundleVim/Vundle.vim'
 
 " NerdTree
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
+
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Git stuff
 Plug 'tpope/vim-fugitive'
@@ -34,17 +33,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Emmet HTML plugin
-" Plug 'mattn/emmet-vim'
-
 " Vim surrond
 Plug 'tpope/vim-surround'
 
 " Commenting
 Plug 'scrooloose/nerdcommenter'
-
-" TODO might not need with fugitive: git gutter
-"Plug 'mhinz/vim-signify'
 
 " Better Targeting of text objects
 Plug 'wellle/targets.vim'
@@ -52,25 +45,11 @@ Plug 'wellle/targets.vim'
 " fuzzyfind
 Plug 'junegunn/fzf'
 
-" Autocomplete/Intellisense
-Plug 'neoclide/coc.nvim'
-
-" FZF and stuff real easy
-"Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-
-" TODO: syntax highlighting things
-
 " Theme of text editor
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 " Icons for stuff
 Plug 'ryanoasis/vim-devicons'
-
-" Typescript syntax highlighting
-Plug 'leafgarland/typescript-vim'
-
-" Javascript syntax hightlighting
-Plug 'pangloss/vim-javascript'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -80,6 +59,34 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Function params help
 Plug 'Shougo/echodoc.vim'
+
+" Nvim built-in lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'onsails/lspkind-nvim'
+
+" status for LSP
+Plug 'nvim-lua/lsp-status.nvim'
+
+" Nvim LSP completion
+Plug 'hrsh7th/nvim-compe'
+
+" GUI on top of builtin lsp
+Plug 'glepnir/lspsaga.nvim'
+
+" Get help with function stuff on side
+Plug 'liuchengxu/vista.vim'
+
+" Get css colors within terminal
+Plug 'norcalli/nvim-colorizer.lua'
+
+" Fancy start screen
+Plug 'mhinz/vim-startify'
+
+" Better bufferline
+Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+Plug 'akinsho/nvim-bufferline.lua'
+
+
 
 call plug#end()
 
@@ -100,30 +107,54 @@ set updatetime=100
 
 
 "" ============================= "
-"" ======     EchoDoc     ====== "
+"" ======      VISTA      ====== "
 "" ============================= "
+nnoremap <silent><C-v> :Vista nvim_lsp<CR>
+
+
+"" ============================= "
+"" ======    LSP Saga     ====== "
+"" ============================= "
+
+lua << EOF
+    local saga = require 'lspsaga'
+    saga.init_lsp_saga()
+EOF
+
+nnoremap <silent>K :Lspsaga hover_doc<CR>
+nnoremap <silent>gs :Lspsaga signature_help<CR>
+nnoremap <silent>gh :Lspsaga lsp_finder<CR>
+nnoremap <silent>gr :Lspsaga rename<CR>
+
+nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+vnoremap <silent><leader>ca <cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>
+
+
+
 
 "let g:echodoc#enable_at_startup = 1
 
 
 
 " ============================ "
-" ======    NERDTree    ====== "
+" ======    Nvim Tree   ====== "
 " ============================ "
 
+nnoremap <leader>. :NvimTreeToggle<CR>
+nnoremap <leader>m :NvimTreeFindFile<CR>
+
 " Show hidden files/directories
-let g:NERDTreeShowHidden = 1
+"let g:NERDTreeShowHidden = 1
 
-" Remove bookmarks and help text from NERDTree
-let g:NERDTreeMinimalUI = 1
+"" Remove bookmarks and help text from NERDTree
+"let g:NERDTreeMinimalUI = 1
 
-" Hide certain files and directories from NERDTree
-let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
+"" Hide certain files and directories from NERDTree
+"let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
 
-" Open nerdtree
-nnoremap <leader>. :NERDTreeToggle<CR>
-nnoremap <leader>m :NERDTreeFind<CR>
-nnoremap <leader>v. :NERDTreeVCS<CR>
+"" Open nerdtree
+"nnoremap <leader>. :NERDTreeToggle<CR>
+"nnoremap <leader>m :NERDTreeFind<CR>
 
 
 
@@ -133,101 +164,15 @@ nnoremap <leader>v. :NERDTreeVCS<CR>
 " ============================ "
 
 let g:airline_theme = 'bubblegum'
-let g:airline#extensions#tabline#enabled = 1
-
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" TODO HOW TO CONFIGURE THIS CORRECTLY???
-let g:bufferline_inactive_highlight = 'airline_c'
-let g:bufferline_active_highlight = 'bufferline_selected'
-let g:bufferline_active_buffer_left = ''
-let g:bufferline_active_buffer_right = ''
-
-"let g:bufferline_separator = g:airline_symbols.space
-
-"let g:airline#extensions#tabline#buf_label_first = 1
-"let g:airline#extensions#tabline#show_close_button = 0
-"let g:airline#extensions#tabline#alt_sep = 1
-"let g:airline#extensions#tabline#tab_nr_type = 2
-"let g:airline#extensions#tabline#show_tab_nr = 1
 
 "" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-"let g:airline_extensions = ['branch', 'hunks', 'coc']
-
 " Update section z to just have line number
 let g:airline_section_z = airline#section#create(['linenr'])
 
-
-" let g:airline_statusline_ontop = 1
-
 "" Enable powerline fonts
 let g:airline_powerline_fonts = 1
-
-
-" ============================ "
-" ========     COC    ======== "
-" ============================ "
-
-" coc config
-let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ ]
-
-" from readme
-" if hidden is not set, TextEdit might fail.
-set hidden " Some servers have issues with backup files, see #649 set nobackup set nowritebackup " Better display for messages set cmdheight=2 " You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" use <tab> for trigger completion and navigate to next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-
-nmap <leader>ac  <Plug>(coc-codeaction)
-
-" Quick fix
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
 
 
 
@@ -243,7 +188,13 @@ set novisualbell
 set number relativenumber
 
 " colorscheme
-colorscheme gruvbox
+set background=dark
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_palette = 'mix'
+colorscheme gruvbox-material
 
  "CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -264,6 +215,7 @@ set winbl=10        " Set floating window to be slightly transparent
 set ignorecase      " ignore case when searching
 set smartcase       " if the search string has an upper case letter in it, the search will be case sensitive
 set splitright      " have vs split right instead of left 
+set mouse=a         " Allow use of mouse in all modes
 
 
 " undo highlight
@@ -282,8 +234,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" command-shift-t behavior in chrome
+nnoremap <leader><C-t> :vs#<cr>
+
 " turn on syntax highlighting
 syntax on
+
 
 " ========================================================================= " 
 " ====                          MISC CONFIG                            ==== "
@@ -296,6 +252,8 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
+
+set termguicolors
 
 " True colors and italics
 "let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -310,3 +268,4 @@ if exists('g:loaded_webdevicons')
 endif
 
 endif
+
