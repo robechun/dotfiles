@@ -21,23 +21,21 @@ let maplocalleader = "\\"
 call plug#begin('~/.vim/plugged')
 
 " NerdTree
-"Plug 'preservim/nerdtree'
-
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'preservim/nerdtree'
+" Plug 'kyazdani42/nvim-tree.lua'
 
 " Git stuff
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Vim status bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'glepnir/galaxyline.nvim'
 
 " Vim surrond
 Plug 'tpope/vim-surround'
 
 " Commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 
 " Better Targeting of text objects
 Plug 'wellle/targets.vim'
@@ -86,6 +84,10 @@ Plug 'mhinz/vim-startify'
 Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
 Plug 'akinsho/nvim-bufferline.lua'
 
+" Prettier
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+
 
 
 call plug#end()
@@ -99,6 +101,8 @@ set rtp+=/usr/local/opt/fzf
 " GitGutter settings
 set updatetime=100
 
+
+autocmd BufWritePre *.ts,*.js,*.jsx,*.tsx Prettier
 
 "" ============================= "
 "" ======    TELESCOPE    ====== "
@@ -140,39 +144,21 @@ vnoremap <silent><leader>ca <cmd>'<,'>lua require('lspsaga.codeaction').range_co
 " ======    Nvim Tree   ====== "
 " ============================ "
 
-nnoremap <leader>. :NvimTreeToggle<CR>
-nnoremap <leader>m :NvimTreeFindFile<CR>
+" nnoremap <leader>. :NvimTreeToggle<CR>
+" nnoremap <leader>m :NvimTreeFindFile<CR>
 
-" Show hidden files/directories
-"let g:NERDTreeShowHidden = 1
+ " Show hidden files/directories
+let g:NERDTreeShowHidden = 1
 
-"" Remove bookmarks and help text from NERDTree
-"let g:NERDTreeMinimalUI = 1
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
 
-"" Hide certain files and directories from NERDTree
-"let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
+" Hide certain files and directories from NERDTree
+let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
 
-"" Open nerdtree
-"nnoremap <leader>. :NERDTreeToggle<CR>
-"nnoremap <leader>m :NERDTreeFind<CR>
-
-
-
-
-" ============================ "
-" ====    VIM Airline    ===== "
-" ============================ "
-
-let g:airline_theme = 'bubblegum'
-
-"" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" Update section z to just have line number
-let g:airline_section_z = airline#section#create(['linenr'])
-
-"" Enable powerline fonts
-let g:airline_powerline_fonts = 1
+" Open nerdtree
+nnoremap <leader>. :NERDTreeToggle<CR>
+nnoremap <leader>m :NERDTreeFind<CR>
 
 
 
@@ -234,8 +220,16 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
+" TODO this does not work well
 " command-shift-t behavior in chrome
 nnoremap <leader><C-t> :vs#<cr>
+
+" Quick-fix list commands
+nnoremap <C-q> :copen<CR>
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-b> :cprev<CR>
+
+
 
 " turn on syntax highlighting
 syntax on

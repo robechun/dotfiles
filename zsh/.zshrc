@@ -1,12 +1,20 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/$USER/Library/Python/3.7/bin
 
 export TERM="xterm-kitty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
-export EDITOR='vim'
+export EDITOR='nvim'
 
 #alias ssh="kitty +kitten ssh"
+
 alias ssh="python3 ~/.config/kitty/sshTic.py" 
 
 # vim/tmux
@@ -20,11 +28,19 @@ alias tls='tmux ls'
 # ssh stuff
 alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
 alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.amazonaws.com"
+alias staging="ssh aws-us-staging-1"
 
 # misc other commands
 alias zz="vim ~/.zshrc"
 alias tt="vim ~/.tmux.conf.local"
 alias vv="vim ~/.config/nvim/init.vim"
+alias pp="vim package.json"
+alias res="npm ci && npm run build && npm run serve"
+
+# going to right folder
+alias fe="cd ~/workspace/front-client"
+alias be="cd ~/workspace/front"
+alias inf="cd ~/workspace/front-infra"
 
 
 ZSH_THEME=powerlevel10k/powerlevel10k
@@ -63,7 +79,7 @@ ZSH_DISABLE_COMPFIX=true
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -98,6 +114,9 @@ plugins=(
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
+
+# No autocorrect on shell
+unsetopt correct
 
 source $ZSH/oh-my-zsh.sh
 
@@ -137,3 +156,7 @@ autoload -Uz compinit
 compinit
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

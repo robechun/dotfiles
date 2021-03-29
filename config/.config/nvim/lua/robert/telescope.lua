@@ -22,6 +22,7 @@ require('telescope').setup {
             i = {
                 ["<C-l>"] = actions.select_vertical,
                 ["<C-h>"] = actions.select_horizontal,
+                ["<C-q>"] = actions.send_to_qflist,
             },
         }
     },

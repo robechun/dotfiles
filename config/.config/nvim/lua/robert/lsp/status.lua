@@ -34,5 +34,13 @@ status.activate = function()
   nvim_status.register_progress()
 end
 
+status.on_attach = function(client)
+  nvim_status.on_attach(client)
+
+  vim.cmd [[augroup robert_lsp_status]]
+  vim.cmd [[  autocmd CursorHold,BufEnter <buffer> lua require('lsp-status').update_current_function()]]
+  vim.cmd [[augroup END]]
+end
+
 
 return status

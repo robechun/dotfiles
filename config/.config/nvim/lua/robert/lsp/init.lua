@@ -1,4 +1,6 @@
 local has_lsp, lspconfig = pcall(require, 'lspconfig')
+local eslint = pcall(require, 'eslint')
+local prettier = pcall(require, 'prettier')
 
 local _, lspconfig_util = pcall(require, 'lspconfig.util')
 if not has_lsp then
@@ -38,6 +40,7 @@ local custom_attach = function(client, bufnr)
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
+  -- TODO the highlighting here is kihnda whack
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
@@ -53,6 +56,60 @@ local custom_attach = function(client, bufnr)
   end
 end
 
+-- Handle diagnostic configuration
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    -- Enable underline
+    underline = true,
+    -- Enable virtual text
+    virtual_text = true,
+    -- Disable on insert
+    update_in_insert = false,
+    signs = {
+      priority = 20
+    }
+  }
+)
+
+-- Diagnostic server configuration
+lspconfig.diagnosticls.setup {
+  on_attach = custom_attach,
+  filetypes = {
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "html",
+    "css",
+    "less",
+  },
+  init_options = {
+    filetypes = {
+      javascript = "eslint",
+      typescript = "eslint",
+      javascriptreact = "eslint",
+      typescriptreact = "eslint"
+    },
+    formatFiletypes = {
+      javascript = "prettier",
+      typescript = "prettier",
+      javascriptreact = "prettier",
+      typescriptreact = "prettier",
+      css = "prettier",
+      html = "prettier",
+      less = "prettier",
+      lua = "luafmt"
+    },
+    linters = {
+      eslint = eslint
+    },
+    formatters = {
+      prettier = prettier
+    }
+  }
+}
 
 
 local custom_init = function(client)
