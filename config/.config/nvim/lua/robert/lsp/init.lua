@@ -1,132 +1,112 @@
-local has_lsp, lspconfig = pcall(require, 'lspconfig')
-local eslint = pcall(require, 'eslint')
-local prettier = pcall(require, 'prettier')
 
-local _, lspconfig_util = pcall(require, 'lspconfig.util')
-if not has_lsp then
-  return
+-- TODO robert
+-- _ = require('lspkind').init()
+-- require('robert.lsp.status')
+
+-- Format on Save
+local format_async = function(err, _, result, _, bufnr)
+    if err ~= nil or result == nil then return end
+    if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
+        local view = vim.fn.winsaveview()
+        vim.lsp.util.apply_text_edits(result, bufnr)
+        vim.fn.winrestview(view)
+        if bufnr == vim.api.nvim_get_current_buf() then
+            vim.api.nvim_command('noautocmd :update')
+        end
+    end
 end
 
-_ = require('lspkind').init()
-require("robert.lsp.status")
+-- Set Default Prefix.
+-- Note: You can set a prefix per lsp server in the lv-globals.lua file
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = {
+      prefix = '',
+      spacing = 0,
+    },
+    signs = true,
+    underline = true,
+  }
+)
+
+vim.lsp.handlers['textDocument/formatting'] = format_async
 
 
-local custom_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+vim.cmd('nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>')
+vim.cmd('nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>')
+vim.cmd('nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>')
+vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+-- symbols for autocomplete
+vim.lsp.protocol.CompletionItemKind = {
+    '   (Text) ',
+    '   (Method)',
+    '   (Function)',
+    '   (Constructor)',
+    ' ﴲ  (Field)',
+    '[] (Variable)',
+    '   (Class)',
+    ' ﰮ  (Interface)',
+    '   (Module)',
+    ' 襁 (Property)',
+    '   (Unit)',
+    '   (Value)',
+    ' 練 (Enum)',
+    '   (Keyword)',
+    '   (Snippet)',
+    '   (Color)',
+    '   (File)',
+    '   (Reference)',
+    '   (Folder)',
+    '   (EnumMember)',
+    ' ﲀ  (Constant)',
+    ' ﳤ  (Struct)',
+    '   (Event)',
+    '   (Operator)',
+    '   (TypeParameter)'
+}
 
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  end
-
-  -- TODO the highlighting here is kihnda whack
-  -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec([[
-      hi LspReferenceRead cterm=bold ctermbg=red ctermfg=Gray guifg=Gray guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red ctermfg=Gray guifg=Gray guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red ctermfg=Gray guifg=Gray guibg=LightYellow
+local function documentHighlight(client, bufnr)
+    -- Set autocommands conditional on server_capabilities
+    if client.resolved_capabilities.document_highlight then
+        vim.api.nvim_exec(
+            [[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
+      hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]], false)
-  end
+    ]],
+            false
+        )
+    end
 end
 
--- Handle diagnostic configuration
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics,
-  {
-    -- Enable underline
-    underline = true,
-    -- Enable virtual text
-    virtual_text = true,
-    -- Disable on insert
-    update_in_insert = false,
-    signs = {
-      priority = 20
-    }
-  }
-)
-
--- Diagnostic server configuration
-lspconfig.diagnosticls.setup {
-  on_attach = custom_attach,
-  filetypes = {
-    "javascript",
-    "typescript",
-    "javascriptreact",
-    "typescriptreact",
-    "html",
-    "css",
-    "less",
-  },
-  init_options = {
-    filetypes = {
-      javascript = "eslint",
-      typescript = "eslint",
-      javascriptreact = "eslint",
-      typescriptreact = "eslint"
-    },
-    formatFiletypes = {
-      javascript = "prettier",
-      typescript = "prettier",
-      javascriptreact = "prettier",
-      typescriptreact = "prettier",
-      css = "prettier",
-      html = "prettier",
-      less = "prettier",
-      lua = "luafmt"
-    },
-    linters = {
-      eslint = eslint
-    },
-    formatters = {
-      prettier = prettier
-    }
-  }
-}
+-- if client.resolved_capabilities.document_formatting then
+--         vim.api.nvim_exec([[
+--          augroup LspAutocommands
+--              autocmd! * <buffer>
+--              autocmd BufWritePost <buffer> LspFormatting
+--          augroup END
+--          ]], true)
+--     end
+-- end
 
 
-local custom_init = function(client)
-  client.config.flags = client.config.flags or {}
-  client.config.flags.allow_incremental_sync = true
+
+local lsp_config = {}
+
+function lsp_config.common_on_attach(client, bufnr)
+    documentHighlight(client, bufnr)
 end
 
-lspconfig.tsserver.setup({
-    cmd = {"typescript-language-server", "--stdio"},
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx"
-    },
-    on_init = custom_init,
-    on_attach = custom_attach
-})
+function lsp_config.tsserver_on_attach(client, bufnr)
+    lsp_config.common_on_attach(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+end
+
+return lsp_config

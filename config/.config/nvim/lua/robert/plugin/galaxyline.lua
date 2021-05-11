@@ -158,6 +158,14 @@ gls.left[13] = {
         separator_highlight = {colors.section_bg, colors.bg}
     }
 }
+gls.mid[1] = {
+    ShowLspClient = {
+        provider = function() return require('galaxyline.provider_lsp').get_lsp_client('') end,
+        highlight = {colors.section_fg,colors.section_bg},
+        icon = ' LSP:',
+    }
+
+}
 
 -- Right side
 gls.right[1] = {

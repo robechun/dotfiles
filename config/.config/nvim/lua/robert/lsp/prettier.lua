@@ -1,3 +1,4 @@
+-- TODO robert; this is not being used
 local prettier = {
     command = './node_modules/.bin/prettier',
     args = { '--stdin', '--stdin-filepath', '%filepath' },

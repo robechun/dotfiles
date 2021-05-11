@@ -1,3 +1,5 @@
+-- TODO robert; this doesn't seem to really do anything; 
+-- might be due to integrationw with galaxyline
 local nvim_status  = require('lsp-status')
 
 local status = {}
