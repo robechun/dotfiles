@@ -25,5 +25,6 @@ require('robert.plugin.completion')
 require('robert.plugin.colorizer')
 require('robert.plugin.galaxyline')
 require('robert.plugin.nvim_tree')
+require('robert.plugin.scrollbar')
 
 -- require('robert.plugin.bufferline')

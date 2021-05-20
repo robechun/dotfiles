@@ -3,8 +3,8 @@
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = true, silent = true})
 
 -- edit vim file fast
-vim.api.nvim_set_keymap('n', '<leader>ev', ':vsplit $$MYVIMRC<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>sv', ':source $$MYVIMRC<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ev', ':vsplit ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>sv', ':source ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
 
 -- Moving between windows easier
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {silent = true})

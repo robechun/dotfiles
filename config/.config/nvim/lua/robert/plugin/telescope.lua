@@ -1,4 +1,6 @@
+
 local actions = require('telescope.actions')
+
 require('telescope').setup {
     defaults = {
         vimgrep_arguments = {
@@ -45,3 +47,4 @@ M.search_dotfiles = function()
 end
 
 return M
+

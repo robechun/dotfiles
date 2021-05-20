@@ -103,6 +103,9 @@ return require('packer').startup(
         -- Colorize within vim
         use {'norcalli/nvim-colorizer.lua', opt = true}
 
+        -- Scroll within vim
+        use {'dstein64/nvim-scrollview', opt = true}
+
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
         require_plugin('vim-surround')
@@ -129,6 +132,7 @@ return require('packer').startup(
         require_plugin('barbar.nvim')
         require_plugin('vim-startify')
         require_plugin('nvim-colorizer.lua')
+        require_plugin('nvim-scrollview')
     end
 )
 

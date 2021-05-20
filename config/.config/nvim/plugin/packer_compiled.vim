@@ -150,6 +150,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/popup.nvim"
   },
+  ["scrollbar.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/scrollbar.nvim"
+  },
   ["targets.vim"] = {
     loaded = false,
     needs_bufread = false,
