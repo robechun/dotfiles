@@ -11,10 +11,10 @@ require('robert.colorscheme')
 
 -- LSP
 require('robert.lsp')
--- require('robert.lsp.status')
 require('robert.lsp.js-ts')
 require('robert.lsp.docker')
 require('robert.lsp.efm')
+-- require('robert.lsp.status')
 
 -- Plugins
 require('robert.plugin.gitgutter')
@@ -26,5 +26,6 @@ require('robert.plugin.colorizer')
 require('robert.plugin.galaxyline')
 require('robert.plugin.nvim_tree')
 require('robert.plugin.scrollbar')
+require('robert.plugin.prettier')
 
 -- require('robert.plugin.bufferline')

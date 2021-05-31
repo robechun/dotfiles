@@ -106,6 +106,10 @@ return require('packer').startup(
         -- Scroll within vim
         use {'dstein64/nvim-scrollview', opt = true}
 
+        --  Prettier
+        use {'prettier/vim-prettier', opt = true}
+
+
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
         require_plugin('vim-surround')
@@ -133,6 +137,7 @@ return require('packer').startup(
         require_plugin('vim-startify')
         require_plugin('nvim-colorizer.lua')
         require_plugin('nvim-scrollview')
+        require_plugin('vim-prettier')
     end
 )
 
