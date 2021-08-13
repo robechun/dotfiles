@@ -54,3 +54,5 @@
 [diff]
   algorithm = histogram
 
+[worktree]
+  guessRemote = true

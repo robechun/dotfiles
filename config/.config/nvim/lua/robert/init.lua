@@ -27,5 +27,6 @@ require('robert.plugin.galaxyline')
 require('robert.plugin.nvim_tree')
 require('robert.plugin.scrollbar')
 require('robert.plugin.prettier')
+require('robert.plugin.nvim-autopairs')
 
 -- require('robert.plugin.bufferline')

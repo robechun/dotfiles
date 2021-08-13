@@ -27,3 +27,12 @@ vim.api.nvim_set_keymap('v', '<leader>y', '"+y', {silent = true})
 -- CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 -- so that you can undo CTRL-U after inserting a line break.
 vim.api.nvim_set_keymap('i', '<C-U>', '<C-G>u<C-U>', {noremap = true, silent = true})
+
+-- nvim-compe remap
+local compeOpts = {noremap = true, silent = true, expr = true}
+
+vim.api.nvim_set_keymap('i', '<C-space>', [[compe#complete()]], compeOpts)
+vim.api.nvim_set_keymap('i', '<CR>',      [[compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr())"]], compeOpts)
+vim.api.nvim_set_keymap('i', '<C-e>',     [[compe#close('<C-e>')]], compeOpts)
+vim.api.nvim_set_keymap('i', '<C-f>',     [[compe#scroll({'delta': +4 })]], compeOpts)
+vim.api.nvim_set_keymap('i', '<C-d>',     [[compe#scroll({'delta': -4 })]], compeOpts)

@@ -1,17 +1,14 @@
-" Automatically generated packer.nvim plugin loader code
+-- Automatically generated packer.nvim plugin loader code
 
-if !has('nvim-0.5')
-  echohl WarningMsg
-  echom "Invalid Neovim version for packer.nvim!"
-  echohl None
-  finish
-endif
+if vim.api.nvim_call_function('has', {'nvim-0.5'}) ~= 1 then
+  vim.api.nvim_command('echohl WarningMsg | echom "Invalid Neovim version for packer.nvim! | echohl None"')
+  return
+end
 
-packadd packer.nvim
+vim.api.nvim_command('packadd packer.nvim')
 
-try
+local no_errors, error_msg = pcall(function()
 
-lua << END
   local time
   local profile_info
   local should_profile = false
@@ -46,7 +43,7 @@ local function save_profiles(threshold)
   _G._packer.profile_output = results
 end
 
-time("Luarocks path setup", true)
+time([[Luarocks path setup]], true)
 local package_path_str = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
 local install_cpath_pattern = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
@@ -57,19 +54,20 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
-time("Luarocks path setup", false)
-time("try_loadstring definition", true)
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
-    print('Error running ' .. component .. ' for ' .. name)
-    error(result)
+    vim.schedule(function()
+      vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
+    end)
   end
   return result
 end
 
-time("try_loadstring definition", false)
-time("Defining packer_plugins", true)
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["barbar.nvim"] = {
     loaded = false,
@@ -107,7 +105,7 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
-    after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_buffer.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_calc.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_emoji.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_luasnip.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_nvim_lsp.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_nvim_lua.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_omni.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_path.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_snippets_nvim.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_spell.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_tags.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_treesitter.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_ultisnips.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vim_lsc.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vim_lsp.vim", "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vsnip.vim" },
+    after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe.vim" },
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-compe"
@@ -121,6 +119,11 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-lspinstall"
+  },
+  ["nvim-scrollview"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-scrollview"
   },
   ["nvim-tree.lua"] = {
     loaded = false,
@@ -149,11 +152,6 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/popup.nvim"
-  },
-  ["scrollbar.nvim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/scrollbar.nvim"
   },
   ["targets.vim"] = {
     loaded = false,
@@ -190,6 +188,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-gitgutter"
   },
+  ["vim-prettier"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-prettier"
+  },
   ["vim-startify"] = {
     loaded = false,
     needs_bufread = false,
@@ -212,14 +215,11 @@ _G.packer_plugins = {
   }
 }
 
-time("Defining packer_plugins", false)
+time([[Defining packer_plugins]], false)
 if should_profile then save_profiles() end
 
-END
+end)
 
-catch
-  echohl ErrorMsg
-  echom "Error in packer_compiled: " .. v:exception
-  echom "Please check your config for correctness"
-  echohl None
-endtry
+if not no_errors then
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
+end

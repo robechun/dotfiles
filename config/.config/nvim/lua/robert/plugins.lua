@@ -70,6 +70,9 @@ return require('packer').startup(
         use {'nvim-telescope/telescope.nvim', opt = true}
         use {'nvim-telescope/telescope-fzy-native.nvim', opt = true}
 
+        -- AutoPairs
+        use {'windwp/nvim-autopairs', opt = true}
+
         -- Debugging 
         -- TODO look into this
         -- use {'mfussenegger/nvim-dap', opt = true}
@@ -110,6 +113,7 @@ return require('packer').startup(
         use {'prettier/vim-prettier', opt = true}
 
 
+        require_plugin('nvim-autopairs')
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
         require_plugin('vim-surround')
@@ -124,9 +128,9 @@ return require('packer').startup(
         require_plugin('lspkind-nvim')
         require_plugin('popup.nvim')
         require_plugin('plenary.nvim')
+        require_plugin('nvim-compe')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzy-native.nvim')
-        require_plugin('nvim-compe')
         require_plugin('nvim-treesitter')
         require_plugin('nvim-tree.lua')
         require_plugin('vista.vim')
