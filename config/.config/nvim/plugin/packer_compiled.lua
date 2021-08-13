@@ -99,6 +99,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/lspsaga.nvim"
   },
+  ["nvim-autopairs"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-autopairs"
+  },
   ["nvim-colorizer.lua"] = {
     loaded = false,
     needs_bufread = false,

@@ -36,3 +36,16 @@ vim.api.nvim_set_keymap('i', '<CR>',      [[compe#confirm(luaeval("require 'nvim
 vim.api.nvim_set_keymap('i', '<C-e>',     [[compe#close('<C-e>')]], compeOpts)
 vim.api.nvim_set_keymap('i', '<C-f>',     [[compe#scroll({'delta': +4 })]], compeOpts)
 vim.api.nvim_set_keymap('i', '<C-d>',     [[compe#scroll({'delta': -4 })]], compeOpts)
+
+-- snippets
+vim.api.nvim_set_keymap('i', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
+vim.api.nvim_set_keymap('s', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
+
+vim.api.nvim_set_keymap('i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], {expr = true})
+vim.api.nvim_set_keymap('s', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], {expr = true})
+
+vim.api.nvim_set_keymap('i', '<Tab>', [[vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']], {expr = true})
+vim.api.nvim_set_keymap('s', '<Tab>', [[vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']], {expr = true})
+
+vim.api.nvim_set_keymap('i', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})
+vim.api.nvim_set_keymap('s', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})

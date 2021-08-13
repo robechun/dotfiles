@@ -79,9 +79,11 @@ return require('packer').startup(
 
         -- Autocomplete
         use {'hrsh7th/nvim-compe', opt = true}
-        -- TODO snippets later when needed
-        -- use {'hrsh7th/vim-vsnip', opt = true}
-        -- use {'rafamadriz/friendly-snippets', opt = true}
+
+        -- Snippets
+        use {'hrsh7th/vim-vsnip', opt = true}
+        use {'hrsh7th/vim-vsnip-integ', opt = true}
+        use {'rafamadriz/friendly-snippets', opt = true}
 
         -- Treesitter
         use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -112,7 +114,7 @@ return require('packer').startup(
         --  Prettier
         use {'prettier/vim-prettier', opt = true}
 
-
+        -- TODO its cumbersome to add a `use` and then do a `require_plugin` again, we should be able ot make this easier
         require_plugin('nvim-autopairs')
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
@@ -142,6 +144,9 @@ return require('packer').startup(
         require_plugin('nvim-colorizer.lua')
         require_plugin('nvim-scrollview')
         require_plugin('vim-prettier')
+        require_plugin('vim-vsnip')
+        require_plugin('vim-vsnip-integ')
+        require_plugin('friendly-snippets')
     end
 )
 
