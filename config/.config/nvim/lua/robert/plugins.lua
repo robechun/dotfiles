@@ -41,6 +41,7 @@ return require('packer').startup(
         -- Git Stuff
         use {'tpope/vim-fugitive', opt = true}
         use {'airblade/vim-gitgutter', opt = true}
+        use {'tpope/vim-rhubarb', opt = true}
 
         -- Vim Surround
         use {'tpope/vim-surround', opt = true}
@@ -59,7 +60,7 @@ return require('packer').startup(
 
         -- LSP 
         use {'neovim/nvim-lspconfig', opt = true}
-        use {'glepnir/lspsaga.nvim', opt = true}
+        use {'tami5/lspsaga.nvim', opt = true, branch = 'nvim51'}
         use {'kabouzeid/nvim-lspinstall', opt = true}
         use {'nvim-lua/lsp-status.nvim', opt = true}
         use {'onsails/lspkind-nvim', opt = true}
@@ -114,10 +115,26 @@ return require('packer').startup(
         --  Prettier
         use {'prettier/vim-prettier', opt = true}
 
+        -- Indentation
+        use {'lukas-reineke/indent-blankline.nvim', opt = true}
+
+        -- Pretty List of problems
+        use {'folke/trouble.nvim', opt = true}
+
+        -- Smooth Scrolling
+        use {'psliwka/vim-smoothie', opt = true}
+
+        -- Solidity Support
+        use {'TovarishFin/vim-solidity', opt = true}
+
+        -- Harpoon
+        use {'ThePrimeagen/harpoon', opt = true}
+
         -- TODO its cumbersome to add a `use` and then do a `require_plugin` again, we should be able ot make this easier
         require_plugin('nvim-autopairs')
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
+        require_plugin('vim-rhubarb')
         require_plugin('vim-surround')
         require_plugin('vim-commentary')
         require_plugin('targets.vim')
@@ -147,6 +164,10 @@ return require('packer').startup(
         require_plugin('vim-vsnip')
         require_plugin('vim-vsnip-integ')
         require_plugin('friendly-snippets')
+        require_plugin('indent-blankline.nvim')
+        require_plugin('trouble.nvim')
+        require_plugin('vim-smoothie')
+        require_plugin('vim-solidity')
+        require_plugin('harpoon')
     end
 )
-

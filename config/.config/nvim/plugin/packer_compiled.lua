@@ -74,6 +74,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/barbar.nvim"
   },
+  ["friendly-snippets"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/friendly-snippets"
+  },
   ["galaxyline.nvim"] = {
     loaded = false,
     needs_bufread = false,
@@ -83,6 +88,16 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/gruvbox-material"
+  },
+  harpoon = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/harpoon"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim"
   },
   ["lsp-status.nvim"] = {
     loaded = false,
@@ -170,8 +185,13 @@ _G.packer_plugins = {
   },
   ["telescope.nvim"] = {
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/telescope.nvim"
+  },
+  ["trouble.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/trouble.nvim"
   },
   ["vim-commentary"] = {
     loaded = false,
@@ -198,6 +218,16 @@ _G.packer_plugins = {
     needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-prettier"
   },
+  ["vim-smoothie"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-smoothie"
+  },
+  ["vim-solidity"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-solidity"
+  },
   ["vim-startify"] = {
     loaded = false,
     needs_bufread = false,
@@ -207,6 +237,17 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-surround"
+  },
+  ["vim-vsnip"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-vsnip-integ/after/plugin/vsnip_integ.vim" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-vsnip-integ"
   },
   ["vista.vim"] = {
     loaded = false,

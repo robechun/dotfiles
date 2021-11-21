@@ -42,7 +42,7 @@ alias pp="vim package.json"
 
 # going to right folder
 alias fe="cd ~/workspace/front-client"
-alias fem="cd ~/workspace/front-client.git/master"
+alias fem="cd ~/workspace/worktree/front-client"
 alias be="cd ~/workspace/front"
 alias bem="cd ~/workspace/worktree/front"
 alias inf="cd ~/workspace/front-infra"
@@ -57,10 +57,15 @@ alias kp="k get pods"
 alias gpstaging="git push origin HEAD:rchung/staging -f"
 alias gppreprod="git push origin HEAD:preprod -f"
 alias staging="ssh aws-us-staging-1"
+alias staging-eu="ssh aws-eu-staging"
 alias res="npm ci && npm run build && npm run serve"
+alias single="npm run mocha:single"
+alias merge-be="npm run merge:prod"
+alias merge-fe="yarn merge:prod"
 alias logstagingexp="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
 alias logstagingwork="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
 alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=0"
+alias get-es-slow-convs="node ~/workspace/front-infra/scripts/get_es_full_slow_logs.js"
 
 
 function staging_get_pod() {
@@ -81,14 +86,13 @@ alias staging-debug-workers="staging_debug worker"
 alias staging-debug-exposed="staging_debug exposed"
 
 alias pf-sql="kubectl --context "${STAGING_CONTEXT}" port-forward deployment/mysql 3306"
-alias pf-search-light="kubectl port-forward –context "${STAGING_CONTEXT}" -n search statefulset/es-light-7-cluster 9200"
+alias pf-search-light="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-light-7-cluster 9200"
 alias pf-search-full="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-full-cluster 9200"
 alias pf-analytics="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-analytics-cluster 9200"
 alias run-kibana="docker run -p 5601:5601 -e 'ELASTICSEARCH_HOSTS=http://host.docker.internal:9200' docker.elastic.co/kibana/kibana:$(curl localhost:9200 --silent | jq '.version.number' -r)"
 
 
 alias boga="node ~/workspace/front-infra/scripts/boga.js"
-
 
 
 ZSH_THEME=powerlevel10k/powerlevel10k
@@ -157,7 +161,7 @@ COMPLETION_WAITING_DOTS="true"
    git
    iterm2
    man
-   osx
+   macos
    python
    zsh-syntax-highlighting
    zsh-autosuggestions

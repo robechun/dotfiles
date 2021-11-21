@@ -1,3 +1,4 @@
+local noremapAndSilentOpts = {silent = true, noremap = true}
 
 -- undo highlight
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = true, silent = true})
@@ -49,3 +50,19 @@ vim.api.nvim_set_keymap('s', '<Tab>', [[vsnip#jumpable(1) ? '<Plug>(vsnip-jump-n
 
 vim.api.nvim_set_keymap('i', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})
 vim.api.nvim_set_keymap('s', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})
+
+-- Trouble plugin
+local troubleOpts = {silent = true, noremap = true}
+
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", troubleOpts)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", troubleOpts)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", troubleOpts)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", troubleOpts)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", troubleOpts)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", troubleOpts)
+
+-- Git configurations
+vim.api.nvim_set_keymap("n", "<leader>gg", ":GBrowse<cr>", noremapAndSilentOpts)
+
+-- Copy current directory path fast
+vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = expand("%:p")<cr>', noremapAndSilentOpts)

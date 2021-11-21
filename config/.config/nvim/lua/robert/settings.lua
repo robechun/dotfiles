@@ -17,6 +17,9 @@ vim.cmd('set novisualbell')
 
 vim.o.fileencoding = 'utf-8'
 
+-- highlighting
+-- example:  vim.cmd([[highlight BufferCurrent guibg=#5fd7ff guifg=#282a2e]])
+
 local indent = 4
 
 -- Buffer Scope
