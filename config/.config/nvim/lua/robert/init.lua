@@ -17,7 +17,7 @@ require('robert.lsp.efm')
 -- require('robert.lsp.status')
 
 -- Plugins
-require('robert.plugin.gitgutter')
+require('robert.plugin.gitsigns')
 require('robert.plugin.vista')
 require('robert.plugin.lsp_saga');
 require('robert.plugin.telescope')
@@ -33,5 +33,6 @@ require('robert.plugin.harpoon')
 require('robert.plugin.dap')
 require('robert.plugin.neogit')
 require('robert.plugin.toggleterm')
+require('robert.plugin.dap-virtualtext')
 
 -- require('robert.plugin.bufferline')

@@ -40,13 +40,16 @@ return require('packer').startup(
 
         -- Git Stuff
         use {'TimUntersberger/neogit', opt = true}
-        use {'airblade/vim-gitgutter', opt = true}
+        use {'lewis6991/gitsigns.nvim', opt = true}
         use {'sindrets/diffview.nvim', opt = true}
         use {'emmanueltouzery/agitator.nvim', opt = true}
         -- use {'tpope/vim-rhubarb', opt = true}
 
         -- Vim Surround
         use {'tpope/vim-surround', opt = true}
+
+        -- Vim repeat
+        use {'tpope/vim-repeat', opt = true}
 
         -- Commenting
         use {'tpope/vim-commentary', opt = true}
@@ -149,7 +152,7 @@ return require('packer').startup(
         require_plugin('nvim-dap-virtual-text')
         require_plugin('diffview.nvim')
         require_plugin('neogit')
-        require_plugin('vim-gitgutter')
+        require_plugin('gitsigns.nvim')
         require_plugin('agitator.nvim')
         -- require_plugin('vim-rhubarb')
         require_plugin('vim-surround')
@@ -187,5 +190,6 @@ return require('packer').startup(
         require_plugin('harpoon')
         require_plugin('vim-test')
         require_plugin('toggleterm.nvim')
+        require_plugin('vim-repeat')
     end
 )
