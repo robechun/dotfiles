@@ -39,9 +39,11 @@ return require('packer').startup(
         use 'wbthomason/packer.nvim'
 
         -- Git Stuff
-        use {'tpope/vim-fugitive', opt = true}
+        use {'TimUntersberger/neogit', opt = true}
         use {'airblade/vim-gitgutter', opt = true}
-        use {'tpope/vim-rhubarb', opt = true}
+        use {'sindrets/diffview.nvim', opt = true}
+        use {'emmanueltouzery/agitator.nvim', opt = true}
+        -- use {'tpope/vim-rhubarb', opt = true}
 
         -- Vim Surround
         use {'tpope/vim-surround', opt = true}
@@ -131,14 +133,22 @@ return require('packer').startup(
         -- Harpoon
         use {'ThePrimeagen/harpoon', opt = true}
 
-        -- TODO its cumbersome to add a `use` and then do a `require_plugin` again, we should be able ot make this easier
+        -- Vim test
+        use {'vim-test/vim-test', opt = true}
+
+        -- !! NOTE: ORDERING MATTERS !!
+        -- This "require" part is used to make sure that you're loading dependencies in order.
+        -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
+        require_plugin('plenary.nvim')
         require_plugin('nvim-autopairs')
         require_plugin('nvim-dap')
         require_plugin('telescope-dap.nvim')
         require_plugin('nvim-dap-virtual-text')
-        require_plugin('vim-fugitive')
+        require_plugin('diffview.nvim')
+        require_plugin('neogit')
         require_plugin('vim-gitgutter')
-        require_plugin('vim-rhubarb')
+        require_plugin('agitator.nvim')
+        -- require_plugin('vim-rhubarb')
         require_plugin('vim-surround')
         require_plugin('vim-commentary')
         require_plugin('targets.vim')
@@ -150,7 +160,6 @@ return require('packer').startup(
         require_plugin('lsp-status.nvim')
         require_plugin('lspkind-nvim')
         require_plugin('popup.nvim')
-        require_plugin('plenary.nvim')
         require_plugin('nvim-compe')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzy-native.nvim')
@@ -173,5 +182,6 @@ return require('packer').startup(
         require_plugin('vim-smoothie')
         require_plugin('vim-solidity')
         require_plugin('harpoon')
+        require_plugin('vim-test')
     end
 )

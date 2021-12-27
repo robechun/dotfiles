@@ -66,7 +66,10 @@ vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", troubleO
 vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", troubleOpts)
 
 -- Git configurations
-vim.api.nvim_set_keymap("n", "<leader>gg", ":GBrowse<cr>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>gg", ":Neogit<cr>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>gh", ":DiffviewFileHistory<cr>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('agitator').git_blame_toggle({sidebar_width = 20})<CR>", noremapAndSilentOpts)
+
 
 -- Copy current directory path fast
 vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = expand("%:p")<cr>', noremapAndSilentOpts)
@@ -83,4 +86,5 @@ vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require'dap'.run_to_cursor()<CR
 vim.api.nvim_set_keymap("n", "<leader>dh", ":lua require'dap.ui.widgets'.hover()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>df", ":Telescope dap frames<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>", noremapAndSilentOpts)
--- TODO make the 'up' and 'down' mappings
+-- vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront", noremapAndSilentOpts)
+-- TODO make the 'up' and 'down' mappings and testing
