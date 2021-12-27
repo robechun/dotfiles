@@ -1,7 +1,7 @@
 local dap = require('dap')
 require('nvim-dap-virtual-text').setup()
 
-dap.defaults.fallback.terminal_win_cmd = '80split new'
+dap.defaults.fallback.terminal_win_cmd = '10split new'
 vim.fn.sign_define('DapBreakpoint', {text='🔴', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected', {text='🔵', texthl='', linehl='', numhl=''})
 vim.fn.sign_define('DapStopped', {text= '➡️', texthl='', linehl='', numhl=''})
@@ -12,7 +12,7 @@ vim.fn.sign_define('DapStopped', {text= '➡️', texthl='', linehl='', numhl=''
 dap.adapters.node2 = {
   type = 'executable',
   command = 'node',
-  args = {os.getenv('HOME') .. '/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js'},
+  args = {os.getenv('HOME') .. '/vscode-node-debug2/out/src/nodeDebug.js'},
 }
 dap.configurations.javascript = {
   {
@@ -33,6 +33,42 @@ dap.configurations.javascript = {
     processId = require'dap.utils'.pick_process,
   },
 }
+
+local function attach()
+  print("attaching")
+  dap.run({
+      type = 'node2',
+      request = 'attach',
+      cwd = vim.fn.getcwd(),
+      sourceMaps = true,
+      protocol = 'inspector',
+      skipFiles = {'<node_internals>/**/*.js'},
+      })
+end
+
+-- Testing
+local function debugMochaFront(fileName)
+    print('starting test on ' .. fileName)
+    dap.run({
+        type = 'node2',
+        request = 'launch',
+        cwd = vim.fn.getcwd(),
+        runtimeArgs = {
+            './node_modules/.bin/cross-env',
+            'FRONTENV=test',
+            './node_modules/.bin/mocha',
+            '--inspect-brk',
+            '--opts',
+            'tests/mocha.opts',
+            fileName
+        },
+        sourceMaps = true,
+        protocol = 'inspector',
+        skipFiles = {'<node_internals>/**/*.js'},
+        console = 'integratedTerminal',
+        port = 9229,
+    })
+end
 
 --
 -- JS Chrome
@@ -57,7 +93,7 @@ dap.configurations.javascriptreact = { -- change this to javascript if needed
     }
 }
 
-dap.configurations.typescriptreact = { -- change to typescript if needed
+dap.configurations.typescript = { -- change to typescript if needed
     {
         type = "chrome",
         request = "attach",
@@ -70,7 +106,7 @@ dap.configurations.typescriptreact = { -- change to typescript if needed
     }
 }
 
---
--- Testing
--- TODO
---
+return {
+    attach = attach,
+    debugMochaFront = debugMochaFront,
+}

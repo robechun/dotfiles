@@ -76,6 +76,7 @@ vim.api.nvim_set_keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", noremap
 vim.api.nvim_set_keymap("n", "<F8>", ":lua require'dap'.step_over()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<F9>", ":lua require'dap'.step_into()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<F10>", ":lua require'dap'.step_out()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>da", ":lua require'robert.plugin.dap'.attach()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", noremapAndSilentOpts)
@@ -83,5 +84,5 @@ vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require'dap'.run_to_cursor()<CR
 vim.api.nvim_set_keymap("n", "<leader>dh", ":lua require'dap.ui.widgets'.hover()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>df", ":Telescope dap frames<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>", noremapAndSilentOpts)
--- vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront", noremapAndSilentOpts)
--- TODO make the 'up' and 'down' mappings and testing
+vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront<CR>", noremapAndSilentOpts)
+-- TODO make the 'up' and 'down' mappings 
