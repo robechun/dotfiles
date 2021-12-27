@@ -1,5 +1,9 @@
 local noremapAndSilentOpts = {silent = true, noremap = true}
 
+-- Terminal related
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', '<C-t>', ':terminal<CR>', noremapAndSilentOpts)
+
 -- undo highlight
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = true, silent = true})
 
@@ -66,3 +70,17 @@ vim.api.nvim_set_keymap("n", "<leader>gg", ":GBrowse<cr>", noremapAndSilentOpts)
 
 -- Copy current directory path fast
 vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = expand("%:p")<cr>', noremapAndSilentOpts)
+
+-- DAP
+vim.api.nvim_set_keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<F8>", ":lua require'dap'.step_over()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<F9>", ":lua require'dap'.step_into()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<F10>", ":lua require'dap'.step_out()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>db", ":lua require'dap'.toggle_breakpoint()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>dB", ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require'dap'.repl.open()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>dn", ":lua require'dap'.run_to_cursor()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>dh", ":lua require'dap.ui.widgets'.hover()<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>df", ":Telescope dap frames<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>", noremapAndSilentOpts)
+-- TODO make the 'up' and 'down' mappings

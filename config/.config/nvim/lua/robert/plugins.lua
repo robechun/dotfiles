@@ -74,9 +74,10 @@ return require('packer').startup(
         -- AutoPairs
         use {'windwp/nvim-autopairs', opt = true}
 
-        -- Debugging 
-        -- TODO look into this
-        -- use {'mfussenegger/nvim-dap', opt = true}
+        -- Debugging
+        use {'mfussenegger/nvim-dap', opt = true}
+        use {'nvim-telescope/telescope-dap.nvim', opt = true}
+        use {'theHamsta/nvim-dap-virtual-text', opt = true}
 
         -- Autocomplete
         use {'hrsh7th/nvim-compe', opt = true}
@@ -132,6 +133,9 @@ return require('packer').startup(
 
         -- TODO its cumbersome to add a `use` and then do a `require_plugin` again, we should be able ot make this easier
         require_plugin('nvim-autopairs')
+        require_plugin('nvim-dap')
+        require_plugin('telescope-dap.nvim')
+        require_plugin('nvim-dap-virtual-text')
         require_plugin('vim-fugitive')
         require_plugin('vim-gitgutter')
         require_plugin('vim-rhubarb')

@@ -1,4 +1,3 @@
-
 local actions = require('telescope.actions')
 
 require('telescope').setup {
@@ -37,6 +36,7 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('dap')
 
 local M = {}
 M.search_dotfiles = function() 

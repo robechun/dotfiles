@@ -30,5 +30,6 @@ require('robert.plugin.prettier')
 require('robert.plugin.nvim-autopairs')
 require('robert.plugin.indent-blankline')
 require('robert.plugin.harpoon')
+require('robert.plugin.dap')
 
 -- require('robert.plugin.bufferline')
