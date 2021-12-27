@@ -71,6 +71,15 @@ vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('agitator').git_blame_t
 -- Copy current directory path fast
 vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = expand("%:p")<cr>', noremapAndSilentOpts)
 
+-- LSP SAGA
+vim.api.nvim_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', 'gs', ':Lspsaga signature_help<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', 'gh', ':Lspsaga lsp_finder<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', '<leader>gr', ':Lspsaga rename<CR>', noremapAndSilentOpts)
+
+vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd>\'<,\'>lua require(\'lspsaga.codeaction\').range_code_action()<CR>', {noremap = true})
+
 -- DAP
 vim.api.nvim_set_keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<F8>", ":lua require'dap'.step_over()<CR>", noremapAndSilentOpts)
@@ -86,3 +95,4 @@ vim.api.nvim_set_keymap("n", "<leader>df", ":Telescope dap frames<CR>", noremapA
 vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront<CR>", noremapAndSilentOpts)
 -- TODO make the 'up' and 'down' mappings 
+

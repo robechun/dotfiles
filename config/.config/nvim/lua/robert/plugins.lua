@@ -145,6 +145,7 @@ return require('packer').startup(
         -- !! NOTE: ORDERING MATTERS !!
         -- This "require" part is used to make sure that you're loading dependencies in order.
         -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
+        require_plugin('gruvbox-material')
         require_plugin('plenary.nvim')
         require_plugin('nvim-autopairs')
         require_plugin('nvim-dap')
@@ -154,11 +155,9 @@ return require('packer').startup(
         require_plugin('neogit')
         require_plugin('gitsigns.nvim')
         require_plugin('agitator.nvim')
-        -- require_plugin('vim-rhubarb')
         require_plugin('vim-surround')
         require_plugin('vim-commentary')
         require_plugin('targets.vim')
-        require_plugin('gruvbox-material')
         require_plugin('vim-devicons')
         require_plugin('nvim-lspconfig')
         require_plugin('lspsaga.nvim')

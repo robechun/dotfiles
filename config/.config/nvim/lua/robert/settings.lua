@@ -29,6 +29,7 @@ opt('b', 'smartindent', true)                -- Insert indents automatically
 opt('b', 'tabstop', indent)                  -- Number of spaces tabs count for
 
 -- Global Scope
+opt('o', 'updatetime', 200)                  -- Update time for buffer changes and stuff
 opt('o', 'syntax', 'on')                     -- Allow syntax highlight
 opt('o', 'clipboard', 'unnamedplus')         -- Clipboard to be normal stuff
 opt('o', 'shiftround', true)                 -- Shift works with >>

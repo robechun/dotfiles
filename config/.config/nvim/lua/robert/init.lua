@@ -1,4 +1,3 @@
-
 -- Global settings (must load before plugins)
 require('robert.settings')
 require('robert.keymappings')
@@ -11,15 +10,10 @@ require('robert.colorscheme')
 
 -- LSP
 require('robert.lsp')
-require('robert.lsp.js-ts')
-require('robert.lsp.docker')
-require('robert.lsp.efm')
--- require('robert.lsp.status')
 
 -- Plugins
 require('robert.plugin.gitsigns')
 require('robert.plugin.vista')
-require('robert.plugin.lsp_saga');
 require('robert.plugin.telescope')
 require('robert.plugin.completion')
 require('robert.plugin.colorizer')

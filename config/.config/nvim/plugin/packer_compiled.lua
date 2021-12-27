@@ -99,6 +99,12 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/galaxyline.nvim",
     url = "https://github.com/glepnir/galaxyline.nvim"
   },
+  ["gitsigns.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
   ["gruvbox-material"] = {
     loaded = false,
     needs_bufread = false,
@@ -272,17 +278,17 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
   },
-  ["vim-gitgutter"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-gitgutter",
-    url = "https://github.com/airblade/vim-gitgutter"
-  },
   ["vim-prettier"] = {
     loaded = false,
     needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-prettier",
     url = "https://github.com/prettier/vim-prettier"
+  },
+  ["vim-repeat"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-smoothie"] = {
     loaded = false,

@@ -1,42 +1,21 @@
+-- tsserver/web javascript react, vue, json, html, css, yaml
+local prettier = {formatCommand = './node_modules/.bin/prettier --stdin-filepath ${INPUT}', formatStdin = true}
+-- You can look for project scope Prettier and Eslint with e.g. vim.fn.glob("node_modules/.bin/prettier") etc. If it is not found revert to global Prettier where needed.
+-- local prettier = {formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}", formatStdin = true}
 
--- TODO robert
--- _ = require('lspkind').init()
--- require('robert.lsp.status')
+local eslint = {
+    lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+    lintIgnoreExitCode = true,
+    lintStdin = true,
+    lintFormats = {'%f:%l:%c: %m'},
+    formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
+    formatStdin = true
+}
 
--- Format on Save
-local format_async = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then return end
-    if not vim.api.nvim_buf_get_option(bufnr, 'modified') then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then
-            vim.api.nvim_command('noautocmd :update')
-        end
-    end
-end
+local tsserver_args = {}
 
--- Set Default Prefix.
--- Note: You can set a prefix per lsp server in the lv-globals.lua file
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      prefix = '',
-      spacing = 0,
-    },
-    signs = true,
-    underline = true,
-  }
-)
-
-vim.lsp.handlers['textDocument/formatting'] = format_async
-
-
-vim.cmd('nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>')
-vim.cmd('nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>')
-vim.cmd('nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>')
-vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
-
+table.insert(tsserver_args, prettier)
+table.insert(tsserver_args, eslint)
 
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
@@ -67,46 +46,200 @@ vim.lsp.protocol.CompletionItemKind = {
     '   (TypeParameter)'
 }
 
-local function documentHighlight(client, bufnr)
-    -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec(
-            [[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=#464646
-      hi LspReferenceText cterm=bold ctermbg=red guibg=#464646
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=#464646
+local has_lsp, lspconfig = pcall(require, "lspconfig")
+if not has_lsp then
+  return
+end
+
+local lspconfig_util = require "lspconfig.util"
+
+local nvim_status = require "lsp-status"
+
+local handlers = require "robert.lsp.handlers"
+
+-- Can set this lower if needed.
+-- require("vim.lsp.log").set_level "debug"
+-- require("vim.lsp.log").set_level "trace"
+
+local status = require "robert.lsp.status"
+status.activate()
+
+local custom_init = function(client)
+  client.config.flags = client.config.flags or {}
+  client.config.flags.allow_incremental_sync = true
+end
+
+local filetype_attach = setmetatable({
+  go = function(client)
+    vim.cmd [[
+      augroup lsp_buf_format
+        au! BufWritePre <buffer>
+        autocmd BufWritePre <buffer> :lua vim.lsp.buf.formatting_sync()
+      augroup END
+    ]]
+  end,
+}, {
+  __index = function()
+    return function() end
+  end,
+})
+
+local custom_attach = function(client)
+  local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+
+  nvim_status.on_attach(client)
+
+  vim.cmd('nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>')
+  vim.cmd('nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>')
+  vim.cmd('nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>')
+  vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
+
+  vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd [[
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
-            false
-        )
-    end
+    ]]
+  end
+
+  -- Attach any filetype specific options to the client
+  filetype_attach[filetype](client)
 end
 
--- if client.resolved_capabilities.document_formatting then
---         vim.api.nvim_exec([[
---          augroup LspAutocommands
---              autocmd! * <buffer>
---              autocmd BufWritePost <buffer> LspFormatting
---          augroup END
---          ]], true)
---     end
--- end
+local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
+updated_capabilities = vim.tbl_deep_extend("keep", updated_capabilities, nvim_status.capabilities)
 
+-- TODO: check if this is the problem.
+updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
+local servers = {
+  -- gdscript = true,
+  -- graphql = true,
+  -- html = true,
+  -- pyright = true,
+  -- vimls = true,
+  -- yamlls = true,
 
-local lsp_config = {}
+  -- clangd = {
+  --   cmd = {
+  --     "clangd",
+  --     "--background-index",
+  --     "--suggest-missing-includes",
+  --     "--clang-tidy",
+  --     "--header-insertion=iwyu",
+  --   },
+  --   -- Required for lsp-status
+  --   init_options = {
+  --     clangdFileStatus = true,
+  --   },
+  --   handlers = nvim_status.extensions.clangd.setup(),
+  -- },
 
-function lsp_config.common_on_attach(client, bufnr)
-    documentHighlight(client, bufnr)
+  -- gopls = {
+  --   root_dir = function(fname)
+  --     local Path = require "plenary.path"
+
+  --     local absolute_cwd = Path:new(vim.loop.cwd()):absolute()
+  --     local absolute_fname = Path:new(fname):absolute()
+
+  --     if string.find(absolute_cwd, "/cmd/", 1, true) and string.find(absolute_fname, absolute_cwd, 1, true) then
+  --       return absolute_cwd
+  --     end
+
+  --     return lspconfig_util.root_pattern("go.mod", ".git")(fname)
+  --   end,
+
+  --   settings = {
+  --     gopls = {
+  --       codelenses = { test = true },
+  --     },
+  --   },
+
+  --   flags = {
+  --     debounce_text_changes = 200,
+  --   },
+  -- },
+
+  -- rust_analyzer = true,
+  -- --   settings = {
+  -- --     ["rust-analyzer"] = {
+  -- --     },
+  -- -- },
+
+  tsserver = {
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = {
+      -- "javascript",
+      -- "javascriptreact",
+      -- "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+    },
+  },
+
+  efm = {
+    init_options = {documentFormatting = true, codeAction = false},
+    filetypes = {
+        'javascriptreact',
+        'javascript',
+        'typescript',
+        'typescriptreact',
+        'html',
+        'css',
+        'json',
+        'yaml',
+        'vue'
+    },
+    settings = {
+        rootMarkers = {'.git/'},
+        languages = {
+            javascript = tsserver_args,
+            javascriptreact = tsserver_args,
+			typescript = tsserver_args,
+			typescriptreact = tsserver_args,
+            html = {prettier},
+            css = {prettier},
+            json = {prettier},
+            yaml = {prettier},
+        }
+    }
+  }
+}
+
+local setup_server = function(server, config)
+  if not config then
+    return
+  end
+
+  if type(config) ~= "table" then
+    config = {}
+  end
+
+  config = vim.tbl_deep_extend("force", {
+    on_init = custom_init,
+    on_attach = custom_attach,
+    capabilities = updated_capabilities,
+    flags = {
+      debounce_text_changes = 50,
+    },
+  }, config)
+
+  lspconfig[server].setup(config)
 end
 
-function lsp_config.tsserver_on_attach(client, bufnr)
-    lsp_config.common_on_attach(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
+for server, config in pairs(servers) do
+  setup_server(server, config)
 end
 
-return lsp_config
+
+return {
+  on_init = custom_init,
+  on_attach = custom_attach,
+  capabilities = updated_capabilities,
+}
