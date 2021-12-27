@@ -136,6 +136,9 @@ return require('packer').startup(
         -- Vim test
         use {'vim-test/vim-test', opt = true}
 
+        -- Toggle neovim terminal
+        use {'akinsho/toggleterm.nvim', opt = true}
+
         -- !! NOTE: ORDERING MATTERS !!
         -- This "require" part is used to make sure that you're loading dependencies in order.
         -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
@@ -183,5 +186,6 @@ return require('packer').startup(
         require_plugin('vim-solidity')
         require_plugin('harpoon')
         require_plugin('vim-test')
+        require_plugin('toggleterm.nvim')
     end
 )

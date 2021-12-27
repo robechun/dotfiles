@@ -32,5 +32,6 @@ require('robert.plugin.indent-blankline')
 require('robert.plugin.harpoon')
 require('robert.plugin.dap')
 require('robert.plugin.neogit')
+require('robert.plugin.toggleterm')
 
 -- require('robert.plugin.bufferline')

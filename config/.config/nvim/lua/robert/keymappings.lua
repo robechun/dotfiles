@@ -2,7 +2,8 @@ local noremapAndSilentOpts = {silent = true, noremap = true}
 
 -- Terminal related
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', noremapAndSilentOpts)
-vim.api.nvim_set_keymap('n', '<C-t>', ':terminal<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', '<C-t>', ':ToggleTerm dir=git_dir direction=horizontal<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', '<leader><C-t>', ':2ToggleTerm size=90 dir=git_dir direction=vertical<CR>', noremapAndSilentOpts)
 
 -- undo highlight
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = true, silent = true})
@@ -16,10 +17,6 @@ vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {silent = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {silent = true})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {silent = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {silent = true})
-
--- TODO this does not work well
--- command-shift-t behavior in chrome
-vim.api.nvim_set_keymap('n', '<leader><C-t>', ':vs#<CR>', {noremap = true, silent = true})
 
 -- Quick-fix list commands
 vim.api.nvim_set_keymap('n', '<C-q>', ':copen<CR>', {noremap = true, silent = true})
