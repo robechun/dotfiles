@@ -8,13 +8,12 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/$USER/Library/Python/3.7/bin
 
-# export TERM="xterm-kitty"
+export TERM="xterm-kitty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
 export EDITOR='nvim'
 export CANARY_USER='rob'
 
-#alias ssh="kitty +kitten ssh"
 
 alias ssh="python3 ~/.config/kitty/sshTic.py" 
 
@@ -39,6 +38,7 @@ alias zz="vim ~/.zshrc"
 alias tt="vim ~/.tmux.conf.local"
 alias vv="vim ~/.config/nvim/init.vim"
 alias pp="vim package.json"
+alias conf="cd ~/.config/nvim"
 
 # going to right folder
 alias fe="cd ~/workspace/front-client"
@@ -50,9 +50,11 @@ alias infm="cd ~/workspace/front-infra.git/master"
 
 # Front related
 export STAGING_NAMESPACE=rchung
+export PREPROD_USER=rob
 export STAGING_CONTEXT=usw2.staging
 
 alias kp="k get pods"
+alias kdp="k describe pod"
 
 alias gpstaging="git push origin HEAD:rchung/staging -f"
 alias gppreprod="git push origin HEAD:preprod -f"
@@ -208,6 +210,11 @@ autoload -Uz compinit
 compinit
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
+
+# Kitty plugins
+#alias ssh="kitty +kitten ssh"
+alias d="kitty +kitten diff"
+alias gd="git difftool --no-symlinks --dir-diff"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

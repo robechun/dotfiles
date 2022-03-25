@@ -1,5 +1,5 @@
 [user]
-	name = Robert Chung
+	name = robertchung97
 	email = robertchung97@gmail.com
 #[credential]
     #helper = osxkeychain
@@ -50,9 +50,21 @@
 [merge]
   ff = false
 
-# Histogram is (unnoticeably) slower, but it generates much cleaner diffs
 [diff]
+  tool = kitty
+  guitool = kitty.gui
+  # Histogram is (unnoticeably) slower, but it generates much cleaner diffs
   algorithm = histogram
+
+[difftool]
+  prompt = false
+  trustExitCode = true
+
+[difftool "kitty"]
+  cmd = kitty +kitten diff $LOCAL $REMOTE
+
+[difftool "kitty.gui"]
+  cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 
 [worktree]
   guessRemote = true
