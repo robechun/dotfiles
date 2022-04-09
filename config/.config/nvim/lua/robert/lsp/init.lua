@@ -1,7 +1,8 @@
--- tsserver/web javascript react, vue, json, html, css, yaml
-local prettier = {formatCommand = './node_modules/.bin/prettier --stdin-filepath ${INPUT}', formatStdin = true}
 -- You can look for project scope Prettier and Eslint with e.g. vim.fn.glob("node_modules/.bin/prettier") etc. If it is not found revert to global Prettier where needed.
--- local prettier = {formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}", formatStdin = true}
+local prettier = {
+    formatCommand = './node_modules/.bin/prettier --stdin-filepath ${INPUT}', 
+    formatStdin = true
+}
 
 local eslint = {
     lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
@@ -172,6 +173,16 @@ local servers = {
   -- -- },
 
   tsserver = {
+    init_options = {
+        preferences = {
+            importModuleSpecifierPreference = "project-relative",
+        }
+    },
+    codeActionsOnSave = {
+        source = {
+            organizeImports = true
+        }
+    },
     cmd = { "typescript-language-server", "--stdio" },
     filetypes = {
       -- "javascript",

@@ -12,7 +12,7 @@ require('telescope').setup {
             '--smart-case'
         },
         file_sorter = require('telescope.sorters').get_fzy_sorter,
-        prompt_prefix = ' >',
+        prompt_prefix = '> ',
         color_devicons = true,
 
         file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
@@ -24,6 +24,7 @@ require('telescope').setup {
                 ["<C-l>"] = actions.select_vertical,
                 ["<C-h>"] = actions.select_horizontal,
                 ["<C-q>"] = actions.send_to_qflist,
+                ["<esc>"] = actions.close
             },
         }
     },
@@ -44,6 +45,12 @@ M.search_dotfiles = function()
         prompt_title = "< VimRC >",
         cwd = "~/.config/nvim/",
     })
+end
+
+M.project_files = function()
+  local opts = {} -- define here if you want to define something
+  local ok = pcall(require"telescope.builtin".git_files, opts)
+  if not ok then require"telescope.builtin".find_files(opts) end
 end
 
 return M

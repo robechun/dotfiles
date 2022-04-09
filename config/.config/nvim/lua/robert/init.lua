@@ -13,7 +13,6 @@ require('robert.lsp')
 
 -- Plugins
 require('robert.plugin.gitsigns')
-require('robert.plugin.vista')
 require('robert.plugin.telescope')
 require('robert.plugin.completion')
 require('robert.plugin.colorizer')
@@ -28,5 +27,6 @@ require('robert.plugin.dap')
 require('robert.plugin.neogit')
 require('robert.plugin.toggleterm')
 require('robert.plugin.dap-virtualtext')
+require('robert.plugin.diffview')
 
 -- require('robert.plugin.bufferline')

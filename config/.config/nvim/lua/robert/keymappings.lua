@@ -30,15 +30,6 @@ vim.api.nvim_set_keymap('v', '<leader>y', '"+y', {silent = true})
 -- so that you can undo CTRL-U after inserting a line break.
 vim.api.nvim_set_keymap('i', '<C-U>', '<C-G>u<C-U>', {noremap = true, silent = true})
 
--- nvim-compe remap
-local compeOpts = {noremap = true, silent = true, expr = true}
-
-vim.api.nvim_set_keymap('i', '<C-space>', [[compe#complete()]], compeOpts)
-vim.api.nvim_set_keymap('i', '<CR>',      [[compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr())"]], compeOpts)
-vim.api.nvim_set_keymap('i', '<C-e>',     [[compe#close('<C-e>')]], compeOpts)
-vim.api.nvim_set_keymap('i', '<C-f>',     [[compe#scroll({'delta': +4 })]], compeOpts)
-vim.api.nvim_set_keymap('i', '<C-d>',     [[compe#scroll({'delta': -4 })]], compeOpts)
-
 -- snippets
 vim.api.nvim_set_keymap('i', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
 vim.api.nvim_set_keymap('s', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
@@ -64,12 +55,11 @@ vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", troubleOpt
 
 -- Git configurations
 vim.api.nvim_set_keymap("n", "<leader>gg", ":Neogit<cr>", noremapAndSilentOpts)
-vim.api.nvim_set_keymap("n", "<leader>gh", ":DiffviewFileHistory<cr>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>gh", ":lua require'robert.plugin.diffview'.diff_history_toggle()<cr>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('agitator').git_blame_toggle({sidebar_width = 20})<CR>", noremapAndSilentOpts)
 
-
 -- Copy current directory path fast
-vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = expand("%:p")<cr>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = system(["git", "ls-files", "--full-name", expand("%")]) <cr>', noremapAndSilentOpts)
 
 -- LSP SAGA
 vim.api.nvim_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', noremapAndSilentOpts)

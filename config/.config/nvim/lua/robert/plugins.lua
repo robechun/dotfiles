@@ -14,7 +14,6 @@ local function require_plugin(plugin)
     local plugin_prefix = fn.stdpath('data') .. '/site/pack/packer/opt/'
 
     local plugin_path = plugin_prefix .. plugin .. '/'
-    --	print('test '..plugin_path)
     local ok, err, code = os.rename(plugin_path, plugin_path)
     if not ok then
         if code == 13 then
@@ -22,7 +21,6 @@ local function require_plugin(plugin)
             return true
         end
     end
-    --	print(ok, err, code)
     if ok then
         vim.cmd('packadd ' .. plugin)
     end
@@ -43,7 +41,6 @@ return require('packer').startup(
         use {'lewis6991/gitsigns.nvim', opt = true}
         use {'sindrets/diffview.nvim', opt = true}
         use {'emmanueltouzery/agitator.nvim', opt = true}
-        -- use {'tpope/vim-rhubarb', opt = true}
 
         -- Vim Surround
         use {'tpope/vim-surround', opt = true}
@@ -85,7 +82,7 @@ return require('packer').startup(
         use {'theHamsta/nvim-dap-virtual-text', opt = true}
 
         -- Autocomplete
-        use {'hrsh7th/nvim-compe', opt = true}
+        use {'hrsh7th/nvim-cmp', opt = true}
 
         -- Snippets
         use {'hrsh7th/vim-vsnip', opt = true}
@@ -97,9 +94,6 @@ return require('packer').startup(
 
         -- Explorer
         use {'kyazdani42/nvim-tree.lua', opt = true}
-
-        -- Get help with function stuff on side
-        use {'liuchengxu/vista.vim', opt = true}
 
         -- Shows what keys are available
         use {'folke/which-key.nvim', opt = true}
@@ -165,12 +159,11 @@ return require('packer').startup(
         require_plugin('lsp-status.nvim')
         require_plugin('lspkind-nvim')
         require_plugin('popup.nvim')
-        require_plugin('nvim-compe')
+        require_plugin('nvim-cmp')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzy-native.nvim')
         require_plugin('nvim-treesitter')
         require_plugin('nvim-tree.lua')
-        require_plugin('vista.vim')
         require_plugin('which-key.nvim')
         require_plugin('galaxyline.nvim')
         require_plugin('nvim-web-devicons')
