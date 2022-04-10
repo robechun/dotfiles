@@ -29,7 +29,7 @@ end
 
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 
--- NOTE: Everything is marked optional so that when we have a clean install, we don't error out 
+-- NOTE: Everything is marked optional so that when we have a clean install, we don't error out
 -- and we actually download all the plugins.
 return require('packer').startup(
     function(use)
@@ -60,12 +60,14 @@ return require('packer').startup(
         -- Icons for stuff
         use {'ryanoasis/vim-devicons', opt = true}
 
-        -- LSP 
+        -- LSP
         use {'neovim/nvim-lspconfig', opt = true}
-        use {'tami5/lspsaga.nvim', opt = true, branch = 'nvim51'}
+        use {'tami5/lspsaga.nvim', opt = true }
         use {'kabouzeid/nvim-lspinstall', opt = true}
         use {'nvim-lua/lsp-status.nvim', opt = true}
         use {'onsails/lspkind-nvim', opt = true}
+        use {'williamboman/nvim-lsp-installer', opt = true}
+        use {"b0o/schemastore.nvim", opt = true}
 
         -- Telescope
         use {'nvim-lua/popup.nvim', opt = true}
@@ -80,17 +82,26 @@ return require('packer').startup(
         use {'mfussenegger/nvim-dap', opt = true}
         use {'nvim-telescope/telescope-dap.nvim', opt = true}
         use {'theHamsta/nvim-dap-virtual-text', opt = true}
+        use {'rcarriga/nvim-dap-ui', opt = true}
 
         -- Autocomplete
-        use {'hrsh7th/nvim-cmp', opt = true}
+        use {'hrsh7th/nvim-cmp', opt = true, branch = 'dev'}
+        use {'hrsh7th/cmp-nvim-lsp', opt = true}
+        use {'hrsh7th/cmp-buffer', opt = true}
+        use {'hrsh7th/cmp-path', opt = true}
 
         -- Snippets
+        use { 'L3MON4D3/LuaSnip' , opt = true}
         use {'hrsh7th/vim-vsnip', opt = true}
         use {'hrsh7th/vim-vsnip-integ', opt = true}
         use {'rafamadriz/friendly-snippets', opt = true}
+        use { 'saadparwaiz1/cmp_luasnip', opt = true}
 
         -- Treesitter
         use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
+        -- Spelling
+        use {'lewis6991/spellsitter.nvim', opt = true}
 
         -- Explorer
         use {'kyazdani42/nvim-tree.lua', opt = true}
@@ -104,7 +115,7 @@ return require('packer').startup(
         use {'romgrk/barbar.nvim', opt = true}
 
         -- Fancy start screen
-        use {'mhinz/vim-startify', opt = true}
+        use {'goolord/alpha-nvim', opt = true}
 
         -- Colorize within vim
         use {'norcalli/nvim-colorizer.lua', opt = true}
@@ -145,6 +156,7 @@ return require('packer').startup(
         require_plugin('nvim-dap')
         require_plugin('telescope-dap.nvim')
         require_plugin('nvim-dap-virtual-text')
+        require_plugin('nvim-dap-ui')
         require_plugin('diffview.nvim')
         require_plugin('neogit')
         require_plugin('gitsigns.nvim')
@@ -154,27 +166,35 @@ return require('packer').startup(
         require_plugin('targets.vim')
         require_plugin('vim-devicons')
         require_plugin('nvim-lspconfig')
+        require_plugin('nvim-lsp-installer')
         require_plugin('lspsaga.nvim')
         require_plugin('nvim-lspinstall')
         require_plugin('lsp-status.nvim')
         require_plugin('lspkind-nvim')
         require_plugin('popup.nvim')
         require_plugin('nvim-cmp')
+        require_plugin('cmp-nvim-lsp')
+        require_plugin('cmp-buffer')
+        require_plugin('cmp-path')
+        require_plugin('schemastore.nvim')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzy-native.nvim')
+        require_plugin('spellsitter.nvim')
         require_plugin('nvim-treesitter')
         require_plugin('nvim-tree.lua')
         require_plugin('which-key.nvim')
         require_plugin('galaxyline.nvim')
         require_plugin('nvim-web-devicons')
         require_plugin('barbar.nvim')
-        require_plugin('vim-startify')
+        require_plugin('alpha-nvim')
         require_plugin('nvim-colorizer.lua')
         require_plugin('nvim-scrollview')
         require_plugin('vim-prettier')
+        require_plugin('LuaSnip')
         require_plugin('vim-vsnip')
         require_plugin('vim-vsnip-integ')
         require_plugin('friendly-snippets')
+        require_plugin('cmp_luasnip')
         require_plugin('indent-blankline.nvim')
         require_plugin('trouble.nvim')
         require_plugin('vim-smoothie')

@@ -10,7 +10,7 @@ vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = tr
 
 -- edit vim file fast
 vim.api.nvim_set_keymap('n', '<leader>ev', ':vsplit ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>sv', ':source ~/.config/nvim/init.lua<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>sv', ':source $MYVIMRC<CR>', {noremap = true, silent = true})
 
 -- Moving between windows easier
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {silent = true})
@@ -31,17 +31,13 @@ vim.api.nvim_set_keymap('v', '<leader>y', '"+y', {silent = true})
 vim.api.nvim_set_keymap('i', '<C-U>', '<C-G>u<C-U>', {noremap = true, silent = true})
 
 -- snippets
-vim.api.nvim_set_keymap('i', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
-vim.api.nvim_set_keymap('s', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
-
-vim.api.nvim_set_keymap('i', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], {expr = true})
-vim.api.nvim_set_keymap('s', '<C-l>', [[vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']], {expr = true})
-
-vim.api.nvim_set_keymap('i', '<Tab>', [[vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']], {expr = true})
-vim.api.nvim_set_keymap('s', '<Tab>', [[vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']], {expr = true})
-
-vim.api.nvim_set_keymap('i', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})
-vim.api.nvim_set_keymap('s', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']], {expr = true})
+-- TODO this breaks the completion, so we're just commenting it out for now
+-- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
+-- vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
 -- Trouble plugin
 local troubleOpts = {silent = true, noremap = true}
@@ -60,15 +56,6 @@ vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('agitator').git_blame_t
 
 -- Copy current directory path fast
 vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = system(["git", "ls-files", "--full-name", expand("%")]) <cr>', noremapAndSilentOpts)
-
--- LSP SAGA
-vim.api.nvim_set_keymap('n', 'K', ':Lspsaga hover_doc<CR>', noremapAndSilentOpts)
-vim.api.nvim_set_keymap('n', 'gs', ':Lspsaga signature_help<CR>', noremapAndSilentOpts)
-vim.api.nvim_set_keymap('n', 'gh', ':Lspsaga lsp_finder<CR>', noremapAndSilentOpts)
-vim.api.nvim_set_keymap('n', '<leader>gr', ':Lspsaga rename<CR>', noremapAndSilentOpts)
-
-vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', noremapAndSilentOpts)
-vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd>\'<,\'>lua require(\'lspsaga.codeaction\').range_code_action()<CR>', {noremap = true})
 
 -- DAP
 vim.api.nvim_set_keymap("n", "<F5>", ":lua require'dap'.continue()<CR>", noremapAndSilentOpts)

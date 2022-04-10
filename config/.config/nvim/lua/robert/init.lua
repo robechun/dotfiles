@@ -12,9 +12,10 @@ require('robert.colorscheme')
 require('robert.lsp')
 
 -- Plugins
+require('robert.plugin.alpha')
 require('robert.plugin.gitsigns')
 require('robert.plugin.telescope')
-require('robert.plugin.completion')
+require('robert.plugin.cmp')
 require('robert.plugin.colorizer')
 require('robert.plugin.galaxyline')
 require('robert.plugin.nvim_tree')
@@ -28,5 +29,4 @@ require('robert.plugin.neogit')
 require('robert.plugin.toggleterm')
 require('robert.plugin.dap-virtualtext')
 require('robert.plugin.diffview')
-
--- require('robert.plugin.bufferline')
+require('robert.plugin.dap-ui')
