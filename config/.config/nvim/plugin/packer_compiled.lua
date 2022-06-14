@@ -69,17 +69,24 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/Comment.nvim/after/plugin/Comment.lua" },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = false,
     needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["agitator.nvim"] = {
+  ["alpha-nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/agitator.nvim",
-    url = "https://github.com/emmanueltouzery/agitator.nvim"
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/alpha-nvim",
+    url = "https://github.com/goolord/alpha-nvim"
   },
   ["barbar.nvim"] = {
     loaded = false,
@@ -205,6 +212,12 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-dap",
     url = "https://github.com/mfussenegger/nvim-dap"
   },
+  ["nvim-dap-ui"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-dap-ui",
+    url = "https://github.com/rcarriga/nvim-dap-ui"
+  },
   ["nvim-dap-virtual-text"] = {
     loaded = false,
     needs_bufread = false,
@@ -213,7 +226,7 @@ _G.packer_plugins = {
   },
   ["nvim-lsp-installer"] = {
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-lsp-installer",
     url = "https://github.com/williamboman/nvim-lsp-installer"
   },
@@ -245,6 +258,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
   },
   ["nvim-web-devicons"] = {
     loaded = false,
@@ -317,17 +336,17 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
-  ["vim-commentary"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
-  },
   ["vim-devicons"] = {
     loaded = false,
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
+  },
+  ["vim-fugitive"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-prettier"] = {
     loaded = false,
@@ -352,12 +371,6 @@ _G.packer_plugins = {
     needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-solidity",
     url = "https://github.com/TovarishFin/vim-solidity"
-  },
-  ["vim-startify"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/vim-startify",
-    url = "https://github.com/mhinz/vim-startify"
   },
   ["vim-surround"] = {
     loaded = false,

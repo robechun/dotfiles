@@ -40,7 +40,7 @@ return require('packer').startup(
         use {'TimUntersberger/neogit', opt = true}
         use {'lewis6991/gitsigns.nvim', opt = true}
         use {'sindrets/diffview.nvim', opt = true}
-        use {'emmanueltouzery/agitator.nvim', opt = true}
+        use {'tpope/vim-fugitive', opt = true}
 
         -- Vim Surround
         use {'tpope/vim-surround', opt = true}
@@ -49,7 +49,8 @@ return require('packer').startup(
         use {'tpope/vim-repeat', opt = true}
 
         -- Commenting
-        use {'tpope/vim-commentary', opt = true}
+        use {'numToStr/Comment.nvim', opt = true}
+        use {'JoosepAlviste/nvim-ts-context-commentstring', opt = true}
 
         -- Better Targeting of text objects
         use {'wellle/targets.vim', opt = true}
@@ -110,9 +111,8 @@ return require('packer').startup(
         use {'folke/which-key.nvim', opt = true}
 
         -- Status Line and Bufferline
-        use {'glepnir/galaxyline.nvim', opt = true}
+        use {'nvim-lualine/lualine.nvim', opt = true}
         use {'kyazdani42/nvim-web-devicons', opt = true}
-        use {'romgrk/barbar.nvim', opt = true}
 
         -- Fancy start screen
         use {'goolord/alpha-nvim', opt = true}
@@ -160,9 +160,10 @@ return require('packer').startup(
         require_plugin('diffview.nvim')
         require_plugin('neogit')
         require_plugin('gitsigns.nvim')
-        require_plugin('agitator.nvim')
+        require_plugin('vim-fugitive')
         require_plugin('vim-surround')
-        require_plugin('vim-commentary')
+        require_plugin('Comment.nvim')
+        require_plugin('nvim-ts-context-commentstring')
         require_plugin('targets.vim')
         require_plugin('vim-devicons')
         require_plugin('nvim-lspconfig')
@@ -183,9 +184,8 @@ return require('packer').startup(
         require_plugin('nvim-treesitter')
         require_plugin('nvim-tree.lua')
         require_plugin('which-key.nvim')
-        require_plugin('galaxyline.nvim')
+        require_plugin('lualine.nvim')
         require_plugin('nvim-web-devicons')
-        require_plugin('barbar.nvim')
         require_plugin('alpha-nvim')
         require_plugin('nvim-colorizer.lua')
         require_plugin('nvim-scrollview')

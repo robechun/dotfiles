@@ -1,5 +1,8 @@
 local noremapAndSilentOpts = {silent = true, noremap = true}
 
+-- Toggle Folding
+vim.api.nvim_set_keymap('n', '<space>', 'za', noremapAndSilentOpts)
+
 -- Terminal related
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', noremapAndSilentOpts)
 vim.api.nvim_set_keymap('n', '<C-t>', ':ToggleTerm dir=git_dir direction=horizontal<CR>', noremapAndSilentOpts)
@@ -52,7 +55,7 @@ vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", troubleOpt
 -- Git configurations
 vim.api.nvim_set_keymap("n", "<leader>gg", ":Neogit<cr>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>gh", ":lua require'robert.plugin.diffview'.diff_history_toggle()<cr>", noremapAndSilentOpts)
-vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('agitator').git_blame_toggle({sidebar_width = 20})<CR>", noremapAndSilentOpts)
+vim.api.nvim_set_keymap("n", "<leader>gb", ":Git blame<cr>", noremapAndSilentOpts)
 
 -- Copy current directory path fast
 vim.api.nvim_set_keymap("n", "<leader><C-g>", ':let @+ = system(["git", "ls-files", "--full-name", expand("%")]) <cr>', noremapAndSilentOpts)
@@ -71,5 +74,5 @@ vim.api.nvim_set_keymap("n", "<leader>dh", ":lua require'dap.ui.widgets'.hover()
 vim.api.nvim_set_keymap("n", "<leader>df", ":Telescope dap frames<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>", noremapAndSilentOpts)
 vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront<CR>", noremapAndSilentOpts)
--- TODO make the 'up' and 'down' mappings 
+-- TODO make the 'up' and 'down' mappings
 

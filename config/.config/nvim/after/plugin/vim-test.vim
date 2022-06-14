@@ -6,7 +6,7 @@ let g:test#javascript#mocha#file_pattern = 'tests/server/*'
 let g:test#typescript#mocha#file_pattern = 'tests/server/*'
 
 function! MochaFrontStrategy(cmd)
-    let fileName = split(a:cmd)[5]
+    let fileName = split(a:cmd)[7]
 
     call luaeval("require'robert.plugin.dap'.debugMochaFront([[" . fileName . "]])")
 endfunction

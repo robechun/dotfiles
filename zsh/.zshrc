@@ -6,7 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/Users/$USER/Library/Python/3.7/bin
+export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/usr/local/opt/python@3.10/bin:$PATH
+eval "$(fnm env --use-on-cd)"
 
 export TERM="xterm-kitty"
 # Path to your oh-my-zsh installation.
@@ -96,7 +97,6 @@ alias run-kibana="docker run -p 5601:5601 -e 'ELASTICSEARCH_HOSTS=http://host.do
 
 alias boga="node ~/workspace/front-infra/scripts/boga.js"
 
-
 ZSH_THEME=powerlevel10k/powerlevel10k
 
 ZSH_DISABLE_COMPFIX=true
@@ -161,12 +161,12 @@ COMPLETION_WAITING_DOTS="true"
 # Add wisely, as too many plugins slow down shell startup.
  plugins=(
    git
-   iterm2
    man
    macos
    python
    zsh-syntax-highlighting
    zsh-autosuggestions
+   fnm
 )
 
 # No autocorrect on shell

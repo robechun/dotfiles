@@ -17,7 +17,7 @@ require('robert.plugin.gitsigns')
 require('robert.plugin.telescope')
 require('robert.plugin.cmp')
 require('robert.plugin.colorizer')
-require('robert.plugin.galaxyline')
+require('robert.plugin.lualine')
 require('robert.plugin.nvim_tree')
 require('robert.plugin.scrollbar')
 require('robert.plugin.prettier')
@@ -30,3 +30,6 @@ require('robert.plugin.toggleterm')
 require('robert.plugin.dap-virtualtext')
 require('robert.plugin.diffview')
 require('robert.plugin.dap-ui')
+require('robert.plugin.smoothie');
+require('robert.plugin.comment');
+require('robert.plugin.nvim-treesitter');
