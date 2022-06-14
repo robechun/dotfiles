@@ -51,13 +51,13 @@ opt('o', 'mouse', 'a')                               -- Set floating window to b
 opt('o', 'completeopt', 'menu,menuone,noselect')     -- Needed for nvim-compe
 
   -- Folding
-opt('o', 'foldmethod', 'expr')                       -- Set floating window to be slightly transparent
-opt('o', 'foldexpr', 'nvim_treesitter#foldexpr()')   -- Set floating window to be slightly transparent
-opt('o', 'foldcolumn', '1')                          -- Set floating window to be slightly transparent
-opt('o', 'foldlevelstart', 99)                       -- Set floating window to be slightly transparent
+opt('o', 'foldmethod', 'expr')                       -- Use the expr that I'm settin below as fold method
+opt('o', 'foldexpr', 'nvim_treesitter#foldexpr()')   -- Folding using treesitter
+opt('o', 'foldcolumn', '1')                          -- Show foldcolumn; if so, how
+opt('o', 'foldlevelstart', 99)                       -- Start with no folds closed
+opt('o', 'signcolumn', 'yes:1')                      -- Signs column; and how wide
 
 -- Window Scope
 opt('w', 'list', true)                               -- Show some invisible characters (tabs...)
 opt('w', 'number', true)                             -- Print line number
 opt('w', 'relativenumber', false)                    -- Relative line numbers
-opt('w', 'signcolumn', 'yes:1')                    -- Relative line numbers
