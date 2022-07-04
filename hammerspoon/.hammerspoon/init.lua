@@ -19,6 +19,24 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "A", function()
   win:setFrame(frame, 0)
 end)
 
+-- Move front & slack windows to positions I like
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "B", function()
+    local slackWin = hs.application.find("slack"):mainWindow()
+    local frontWin = hs.application.find("front"):mainWindow()
+
+    local macScreen = hs.screen'Built'
+    local macMaxFrame = macScreen:frame()
+
+    local slackRect = hs.geometry(macMaxFrame.x, macMaxFrame.y, macMaxFrame.w - 45, macMaxFrame.h)
+    local frontRect = hs.geometry(macMaxFrame.x, macMaxFrame.y + 45, macMaxFrame.w, macMaxFrame.h - 45)
+
+    slackWin:move(slackRect, nil, true, 0)
+    slackWin:moveToScreen(macScreen, true, false, 0)
+
+    frontWin:move(frontRect, nil, true, 0)
+    frontWin:moveToScreen(macScreen, true, false, 0)
+
+end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "H", function()
   hs.reload()
@@ -27,7 +45,7 @@ hs.alert.show("Config loaded")
 
 -- Lower volume to 0 when not in home wifi
 wifiWatcher = nil
-homeSSID = "45_saintonge"
+homeSSID = "👁️🫦👁️"
 lastSSID = hs.wifi.currentNetwork()
 
 function ssidChangedCallback()
