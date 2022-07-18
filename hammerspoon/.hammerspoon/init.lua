@@ -21,6 +21,7 @@ end)
 
 -- Move front & slack windows to positions I like
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "B", function()
+    hs.application.enableSpotlightForNameSearches(true)
     local slackWin = hs.application.find("slack"):mainWindow()
     local frontWin = hs.application.find("front"):mainWindow()
 
@@ -45,7 +46,7 @@ hs.alert.show("Config loaded")
 
 -- Lower volume to 0 when not in home wifi
 wifiWatcher = nil
-homeSSID = "👁️🫦👁️"
+homeSSID = "coomba"
 lastSSID = hs.wifi.currentNetwork()
 
 function ssidChangedCallback()

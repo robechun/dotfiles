@@ -7,6 +7,7 @@ vim.api.nvim_set_keymap('n', '<space>', 'za', noremapAndSilentOpts)
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', noremapAndSilentOpts)
 vim.api.nvim_set_keymap('n', '<C-t>', ':ToggleTerm dir=git_dir direction=horizontal<CR>', noremapAndSilentOpts)
 vim.api.nvim_set_keymap('n', '<leader><C-t>', ':2ToggleTerm size=90 dir=git_dir direction=vertical<CR>', noremapAndSilentOpts)
+vim.api.nvim_set_keymap('n', '<leader><C-y>', ':2TermExec size=90 dir=git_dir direction=vertical cmd="single %:r"<CR>', noremapAndSilentOpts)
 
 -- undo highlight
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', {noremap = true, silent = true})

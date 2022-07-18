@@ -40,6 +40,7 @@ alias tt="vim ~/.tmux.conf.local"
 alias vv="vim ~/.config/nvim/init.vim"
 alias pp="vim package.json"
 alias conf="cd ~/.config/nvim"
+alias nr="npm run"
 
 # going to right folder
 alias fe="cd ~/workspace/front-client"
