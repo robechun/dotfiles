@@ -86,7 +86,7 @@ return require('packer').startup(
         use {'rcarriga/nvim-dap-ui', opt = true}
 
         -- Autocomplete
-        use {'hrsh7th/nvim-cmp', opt = true, branch = 'dev'}
+        use {'hrsh7th/nvim-cmp', opt = true}
         use {'hrsh7th/cmp-nvim-lsp', opt = true}
         use {'hrsh7th/cmp-buffer', opt = true}
         use {'hrsh7th/cmp-path', opt = true}
