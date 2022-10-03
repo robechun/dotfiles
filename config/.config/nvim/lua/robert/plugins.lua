@@ -74,7 +74,8 @@ return require('packer').startup(
         use {'nvim-lua/popup.nvim', opt = true}
         use {'nvim-lua/plenary.nvim', opt = true}
         use {'nvim-telescope/telescope.nvim', opt = true}
-        use {'nvim-telescope/telescope-fzy-native.nvim', opt = true}
+        -- use {'nvim-telescope/telescope-fzy-native.nvim', opt = true}
+        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' , opt = true}
 
         -- AutoPairs
         use {'windwp/nvim-autopairs', opt = true}
@@ -111,8 +112,8 @@ return require('packer').startup(
         use {'folke/which-key.nvim', opt = true}
 
         -- Status Line and Bufferline
-        use {'nvim-lualine/lualine.nvim', opt = true}
         use {'kyazdani42/nvim-web-devicons', opt = true}
+        use {'feline-nvim/feline.nvim', opt = true}
 
         -- Fancy start screen
         use {'goolord/alpha-nvim', opt = true}
@@ -179,12 +180,12 @@ return require('packer').startup(
         require_plugin('cmp-path')
         require_plugin('schemastore.nvim')
         require_plugin('telescope.nvim')
-        require_plugin('telescope-fzy-native.nvim')
+        require_plugin('telescope-fzf-native.nvim')
         require_plugin('spellsitter.nvim')
         require_plugin('nvim-treesitter')
         require_plugin('nvim-tree.lua')
         require_plugin('which-key.nvim')
-        require_plugin('lualine.nvim')
+        require_plugin('feline.nvim')
         require_plugin('nvim-web-devicons')
         require_plugin('alpha-nvim')
         require_plugin('nvim-colorizer.lua')
