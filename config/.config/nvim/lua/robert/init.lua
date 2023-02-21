@@ -34,3 +34,4 @@ require('robert.plugin.smoothie');
 require('robert.plugin.comment');
 require('robert.plugin.nvim-treesitter');
 require('robert.plugin.copilot');
+require('robert.plugin.ufo');

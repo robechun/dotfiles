@@ -152,6 +152,9 @@ return require('packer').startup(
         -- Toggle neovim terminal
         use {'akinsho/toggleterm.nvim', opt = true}
 
+        -- Folding
+        use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+
         -- !! NOTE: ORDERING MATTERS !!
         -- This "require" part is used to make sure that you're loading dependencies in order.
         -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
@@ -210,5 +213,6 @@ return require('packer').startup(
         require_plugin('vim-test')
         require_plugin('toggleterm.nvim')
         require_plugin('vim-repeat')
+        require_plugin('nvim-ufo')
     end
 )

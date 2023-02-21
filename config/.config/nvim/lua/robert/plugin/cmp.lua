@@ -16,7 +16,9 @@ if has_cmp then
         },
         mapping = {
             ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                if cmp.visible() and has_words_before() then
+                if require("copilot.suggestion").is_visible() then
+                    require("copilot.suggestion").accept()
+                elseif cmp.visible() and has_words_before() then
                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                 else
                     fallback()
@@ -34,7 +36,7 @@ if has_cmp then
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
-            { name = 'copilot' },
+            --[[ { name = 'copilot' }, ]]
             { name = 'buffer', keyword_length = 3 },
             { name = 'path', max_item_count = 10 },
         }),
@@ -61,5 +63,5 @@ if has_cmp then
     })
 
     -- Github copilot setup
-    require('copilot_cmp').setup()
+    --[[ require('copilot_cmp').setup() ]]
 end

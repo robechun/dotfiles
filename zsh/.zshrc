@@ -66,8 +66,8 @@ alias res="npm ci && npm run build && npm run serve"
 alias single="npm run mocha:single"
 alias merge-be="npm run merge:prod"
 alias merge-fe="yarn merge:prod"
-alias logstagingexp="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
-alias logstagingwork="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
+alias logstagingexp="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
+alias logstagingwork="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
 alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=0"
 alias tail-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/tail.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
 alias top-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/top.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
