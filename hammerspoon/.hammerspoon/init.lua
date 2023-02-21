@@ -83,5 +83,12 @@ bindings:bind('Alacritty', {
                    { modifiers = {'ctrl'}, key = 'h'}
                }}
     },
+    {
+        from = { modifiers = {'cmd'}, key = 't'},
+          to = { sequence = {
+                   { modifiers = {'ctrl'}, key = 'b'},
+                   { modifiers = {}, key = 'c'}
+               }}
+    },
 })
 bindings:start()

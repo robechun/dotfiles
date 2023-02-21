@@ -72,6 +72,7 @@ alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=
 alias tail-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/tail.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
 alias top-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/top.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
 
+alias logboth="/Users/robertchung/.config/tmux-log-staging.sh"
 
 function staging_get_pod() {
   kubectl get pod --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -l "$1" -o jsonpath='{.items[0].metadata.name}'
