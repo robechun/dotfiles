@@ -9,7 +9,7 @@ fi
 export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/usr/local/opt/python@3.10/bin:$PATH
 eval "$(fnm env --use-on-cd)"
 
-export TERM="xterm-kitty"
+export TERM="alacritty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
 export EDITOR='nvim'
@@ -69,7 +69,8 @@ alias merge-fe="yarn merge:prod"
 alias logstagingexp="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
 alias logstagingwork="stern -n ${STAGING_NAMESPACE} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
 alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=0"
-alias get-es-slow-convs="node ~/workspace/front-infra/scripts/get_es_full_slow_logs.js"
+alias tail-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/tail.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
+alias top-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/top.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
 
 
 function staging_get_pod() {
@@ -77,7 +78,7 @@ function staging_get_pod() {
 }
 
 function execute_on_staging() {
-  kubectl exec --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -it $(kubectl get pod -n "${STAGING_NAMESPACE}" -l "$1" -o jsonpath='{.items[0].metadata.name}') -- ${*:2}
+  kubectl exec --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -it $(kubectl get pod -n "${STAGING_NAMESPACE}" -l "$1" -o jsonpath='{.items[0].metadata.name}') -- env COLUMNS=$COLUMNS LINES=$LINES ${*:2}
 }
 
 alias bash-exposed="execute_on_staging app.kubernetes.io/name=front-exposed-components bash"

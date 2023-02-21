@@ -33,3 +33,4 @@ require('robert.plugin.dap-ui')
 require('robert.plugin.smoothie');
 require('robert.plugin.comment');
 require('robert.plugin.nvim-treesitter');
+require('robert.plugin.copilot');

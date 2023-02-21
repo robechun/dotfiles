@@ -36,6 +36,9 @@ return require('packer').startup(
         -- Packer can manage itself as an optional plugin
         use 'wbthomason/packer.nvim'
 
+        -- Github copilot
+        use {'zbirenbaum/copilot.lua', opt = true}
+
         -- Git Stuff
         use {'TimUntersberger/neogit', opt = true}
         use {'lewis6991/gitsigns.nvim', opt = true}
@@ -91,13 +94,14 @@ return require('packer').startup(
         use {'hrsh7th/cmp-nvim-lsp', opt = true}
         use {'hrsh7th/cmp-buffer', opt = true}
         use {'hrsh7th/cmp-path', opt = true}
+        use {'zbirenbaum/copilot-cmp', opt = true}
 
         -- Snippets
         use { 'L3MON4D3/LuaSnip' , opt = true}
         use {'hrsh7th/vim-vsnip', opt = true}
         use {'hrsh7th/vim-vsnip-integ', opt = true}
         use {'rafamadriz/friendly-snippets', opt = true}
-        use { 'saadparwaiz1/cmp_luasnip', opt = true}
+        use {'saadparwaiz1/cmp_luasnip', opt = true}
 
         -- Treesitter
         use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -151,6 +155,7 @@ return require('packer').startup(
         -- !! NOTE: ORDERING MATTERS !!
         -- This "require" part is used to make sure that you're loading dependencies in order.
         -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
+        require_plugin('copilot.lua')
         require_plugin('gruvbox-material')
         require_plugin('plenary.nvim')
         require_plugin('nvim-autopairs')
@@ -176,6 +181,7 @@ return require('packer').startup(
         require_plugin('popup.nvim')
         require_plugin('nvim-cmp')
         require_plugin('cmp-nvim-lsp')
+        require_plugin('copilot-cmp')
         require_plugin('cmp-buffer')
         require_plugin('cmp-path')
         require_plugin('schemastore.nvim')

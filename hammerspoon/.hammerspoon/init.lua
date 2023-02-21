@@ -66,18 +66,22 @@ end
 wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
 wifiWatcher:start()
 
-hs.hotkey.bind({}, "F9", function()
-    local app = hs.application.get("kitty")
-    if app then
-        if not app:mainWindow() then
-            app:selectMenuItem({"kitty", "New OS window"})
-        elseif app:isFrontmost() then
-            app:hide()
-        else
-            app:activate()
-        end
-    else
-        hs.application.launchOrFocus("kitty")
-        app = hs.application.get("kitty")
-    end
-end)
+-- Remap based on application
+local bindings = hs.loadSpoon("remap-keys-spoon/AppBindings")
+bindings:bind('Alacritty', {
+    {
+        from = { modifiers = {'ctrl'}, key = 'tab'},
+          to = { sequence = {
+                   { modifiers = {'ctrl'}, key = 'b'},
+                   { modifiers = {'ctrl'}, key = 'l'}
+               }}
+    },
+    {
+        from = { modifiers = {'ctrl', 'shift'}, key = 'tab'},
+          to = { sequence = {
+                   { modifiers = {'ctrl'}, key = 'b'},
+                   { modifiers = {'ctrl'}, key = 'h'}
+               }}
+    },
+})
+bindings:start()

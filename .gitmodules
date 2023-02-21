@@ -1,0 +1,3 @@
+[submodule "config/.config/nvim/hammerspoon/.hammerspoon/Spoons/remap-keys-spoon"]
+	path = config/.config/nvim/hammerspoon/.hammerspoon/Spoons/remap-keys-spoon
+	url = https://github.com/robertchung97/remap-keys-spoon

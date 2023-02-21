@@ -1,0 +1,18 @@
+# vim:fileencoding=utf-8:foldmethod=marker
+
+include ./advanced.conf.conf
+include ./bell.conf
+include ./cursor.conf
+include ./fonts.conf
+include ./mappings.conf
+include ./mouse.conf
+include ./open-actions.conf
+include ./scroll.conf
+include ./tabs.conf
+# include ./theme.conf
+
+
+# BEGIN_KITTY_THEME
+# Gruvbox Material Light Hard
+include current-theme.conf
+# END_KITTY_THEME
