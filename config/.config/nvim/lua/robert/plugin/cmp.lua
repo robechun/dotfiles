@@ -1,5 +1,4 @@
 local has_cmp, cmp = pcall(require, 'cmp')
-local lspkind = require('lspkind');
 
 local has_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -8,6 +7,7 @@ local has_words_before = function()
 end
 
 if has_cmp then
+    local lspkind = require('lspkind');
     cmp.setup({
         snippet = {
             expand = function(args)
@@ -57,7 +57,34 @@ if has_cmp then
             format = lspkind.cmp_format({
                 mode = "symbol",
                 max_width = 50,
-                symbol_map = { Copilot = "" }
+                symbol_map = {
+                    Text = '  ',
+                    Method = ' ',
+                    Function =' ',
+                    Constructor = ' ',
+                    Field = ' ﴲ',
+                    Variable = '[]',
+                    Class = ' ',
+                    Interface =' ﰮ',
+                    Module = ' ',
+                    Property = ' 襁',
+                    Unit = ' ',
+                    Value = '  ',
+                    Enum = ' 練',
+                    Keyword = ' ',
+                    Snippet = ' ',
+                    Color = ' ',
+                    File =' ',
+                    Reference= ' ',
+                    Folder = ' ',
+                    EnumMember = ' ',
+                    Constant = ' ﲀ',
+                    Struct = ' ﳤ',
+                    Event = ' ',
+                    Operator =' ',
+                    TypeParameter = ' ',
+                    Copilot = ' '
+                },
             })
         }
     })

@@ -1,6 +1,8 @@
 require('Comment').setup {
   pre_hook = function(ctx)
     local U = require 'Comment.utils'
+    require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+
 
     local location = nil
     if ctx.ctype == U.ctype.block then
@@ -15,3 +17,6 @@ require('Comment').setup {
     }
   end,
 };
+
+-- Was told to do this by some error message
+vim.g.skip_ts_commentstring_module = true

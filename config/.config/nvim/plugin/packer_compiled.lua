@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?/init.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?.lua;/Users/robertchung/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/robertchung/.cache/nvim/packer_hererocks/2.1.1700008891/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -91,6 +91,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
+  },
+  ["black-nvim"] = {
+    loaded = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/start/black-nvim",
+    url = "https://github.com/averms/black-nvim"
   },
   ["cmp-buffer"] = {
     after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
@@ -169,8 +174,9 @@ _G.packer_plugins = {
     url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["indent-blankline.nvim"] = {
+    after_files = { "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim/after/plugin/commands.lua" },
     loaded = false,
-    needs_bufread = false,
+    needs_bufread = true,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
@@ -191,6 +197,18 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/lspsaga.nvim",
     url = "https://github.com/tami5/lspsaga.nvim"
+  },
+  ["mason-lspconfig.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
+  ["mason.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
   },
   neogit = {
     loaded = false,
@@ -234,12 +252,6 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-dap-virtual-text",
     url = "https://github.com/theHamsta/nvim-dap-virtual-text"
   },
-  ["nvim-lsp-installer"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
-  },
   ["nvim-lspconfig"] = {
     loaded = false,
     needs_bufread = false,
@@ -275,6 +287,11 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring",
     url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
   },
+  ["nvim-ufo"] = {
+    loaded = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/start/nvim-ufo",
+    url = "https://github.com/kevinhwang91/nvim-ufo"
+  },
   ["nvim-web-devicons"] = {
     loaded = false,
     needs_bufread = false,
@@ -297,6 +314,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
+  },
+  ["promise-async"] = {
+    loaded = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/start/promise-async",
+    url = "https://github.com/kevinhwang91/promise-async"
   },
   ["schemastore.nvim"] = {
     loaded = false,

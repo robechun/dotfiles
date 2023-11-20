@@ -9,6 +9,7 @@ fi
 export PATH=$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/usr/local/opt/python@3.10/bin:$PATH
 eval "$(fnm env --use-on-cd)"
 
+# export TERM="xterm-256color"
 export TERM="alacritty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
@@ -37,12 +38,13 @@ alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.a
 # misc other commands
 alias zz="vim ~/.zshrc"
 alias tt="vim ~/.tmux.conf.local"
-alias vv="vim ~/.config/nvim/init.vim"
 alias pp="vim package.json"
 alias conf="cd ~/.config/nvim"
 alias nr="npm run"
 
 # going to right folder
+alias ai="cd ~/workspace/front-ai"
+alias aim="cd ~/workspace/worktree/front-ai"
 alias fe="cd ~/workspace/front-client"
 alias fem="cd ~/workspace/worktree/front-client"
 alias be="cd ~/workspace/front"
@@ -64,8 +66,7 @@ alias staging="ssh aws-us-staging-1"
 alias staging-eu="ssh aws-eu-staging"
 alias res="npm ci && npm run build && npm run serve"
 alias single="npm run mocha:single"
-alias merge-be="npm run merge:prod"
-alias merge-fe="yarn merge:prod"
+alias merge="npm run merge:prod"
 alias logstagingexp="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
 alias logstagingwork="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
 alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=0"
@@ -79,11 +80,13 @@ function staging_get_pod() {
 }
 
 function execute_on_staging() {
-  kubectl exec --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -it $(kubectl get pod -n "${STAGING_NAMESPACE}" -l "$1" -o jsonpath='{.items[0].metadata.name}') -- env COLUMNS=$COLUMNS LINES=$LINES ${*:2}
+  kubectl exec --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -it $(kubectl get pod -n "${STAGING_NAMESPACE}" --context "${STAGING_CONTEXT}" -l "$1" -o jsonpath='{.items[0].metadata.name}') -- env COLUMNS=$COLUMNS LINES=$LINES ${*:2}
 }
 
 alias bash-exposed="execute_on_staging app.kubernetes.io/name=front-exposed-components bash"
 alias bash-worker="execute_on_staging app.kubernetes.io/name=front-worker-components bash"
+# This alias makes things load slowly
+# alias bash-preprod="kubectl exec -it -n front-preprod $(kubectl get pod -l "app.kubernetes.io/name=api" -o jsonpath='{.items[0].metadata.name}' --field-selector=status.phase=Running -n front-preprod) -- bash"
 alias restart-exposed="execute_on_staging app.kubernetes.io/name=front-exposed-components front-reload"
 alias restart-worker="execute_on_staging app.kubernetes.io/name=front-worker-components front-reload"
 alias restart-both="restart-exposed && restart-worker"

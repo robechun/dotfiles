@@ -77,3 +77,24 @@ vim.api.nvim_set_keymap("n", "<leader>d-", ":Telescope dap list_breakpoints<CR>"
 vim.api.nvim_set_keymap("n", "<leader>dt", ":TestNearest -strategy=mochaFront<CR>", noremapAndSilentOpts)
 -- TODO make the 'up' and 'down' mappings
 
+
+-- LSP Related
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+
+    -- Buffer local mappings.
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "K", ":Lspsaga hover_doc<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "<leader>ca", ":Lspsaga code_action<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gs", ":Lspsaga signature_help<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gh", ":Lspsaga lsp_finder<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gp", ":Lspsaga preview_definition<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "<leader>gr", ":Lspsaga rename<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", '<leader>f', "<cmd>lua vim.lsp.buf.format({async = true})<CR>", noremapAndSilentOpts)
+  end,
+})

@@ -70,7 +70,8 @@ return require('packer').startup(
         use {'kabouzeid/nvim-lspinstall', opt = true}
         use {'nvim-lua/lsp-status.nvim', opt = true}
         use {'onsails/lspkind-nvim', opt = true}
-        use {'williamboman/nvim-lsp-installer', opt = true}
+        use {'williamboman/mason.nvim', opt = true}
+        use {'williamboman/mason-lspconfig.nvim', opt = true}
         use {"b0o/schemastore.nvim", opt = true}
 
         -- Telescope
@@ -125,7 +126,7 @@ return require('packer').startup(
         -- Colorize within vim
         use {'norcalli/nvim-colorizer.lua', opt = true}
 
-        -- Scroll within vim
+        -- Shows scrollbar on the side
         use {'dstein64/nvim-scrollview', opt = true}
 
         --  Prettier
@@ -155,10 +156,14 @@ return require('packer').startup(
         -- Folding
         use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
 
+        -- Python formatting
+        use {'averms/black-nvim', run = ':UpdateRemotePlugins'}
+
         -- !! NOTE: ORDERING MATTERS !!
         -- This "require" part is used to make sure that you're loading dependencies in order.
         -- For example, in order to make diffview.nvim work, you need to load the plenary.nvim plugin first.
         require_plugin('copilot.lua')
+        require_plugin('lspkind-nvim')
         require_plugin('gruvbox-material')
         require_plugin('plenary.nvim')
         require_plugin('nvim-autopairs')
@@ -176,11 +181,11 @@ return require('packer').startup(
         require_plugin('targets.vim')
         require_plugin('vim-devicons')
         require_plugin('nvim-lspconfig')
-        require_plugin('nvim-lsp-installer')
+        require_plugin('mason.nvim')
+        require_plugin('mason-lspconfig.nvim')
         require_plugin('lspsaga.nvim')
         require_plugin('nvim-lspinstall')
         require_plugin('lsp-status.nvim')
-        require_plugin('lspkind-nvim')
         require_plugin('popup.nvim')
         require_plugin('nvim-cmp')
         require_plugin('cmp-nvim-lsp')
