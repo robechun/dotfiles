@@ -5,7 +5,9 @@
 --
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "lua_ls", "ruff_lsp", "tsserver", "pylsp", "eslint"},
+})
 
 -----
 -- Set up diagnostics
@@ -96,7 +98,7 @@ local handlers = {
             on_attach = on_attach
         }
     end,
-    -- Next, you can provide targeted overrides for specific servers.
+    -- Next, you can provide targeted overrides for specific servers. E.g.:
     --[[ ["rust_analyzer"] = function () ]]
     --[[     require("rust-tools").setup {} ]]
     --[[ end, ]]
@@ -109,6 +111,7 @@ require('lspconfig').ruff_lsp.setup {}
 require('lspconfig').tsserver.setup {}
 require('lspconfig').pylsp.setup {}
 require('lspconfig').lua_ls.setup {}
+require('lspconfig').eslint.setup {}
 
 -- Set up specific handlers after
 require("mason-lspconfig").setup_handlers(handlers)

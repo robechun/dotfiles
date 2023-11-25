@@ -70,9 +70,11 @@ return require('packer').startup(
         use {'kabouzeid/nvim-lspinstall', opt = true}
         use {'nvim-lua/lsp-status.nvim', opt = true}
         use {'onsails/lspkind-nvim', opt = true}
-        use {'williamboman/mason.nvim', opt = true}
-        use {'williamboman/mason-lspconfig.nvim', opt = true}
+        use {'williamboman/mason.nvim', opt = true} -- LSP package manager
+        use {'williamboman/mason-lspconfig.nvim', opt = true} -- LSP package manager
         use {"b0o/schemastore.nvim", opt = true}
+        use {"nvimtools/none-ls.nvim", opt = true} -- null-ls replacement for now
+        use {"j-hui/fidget.nvim", opt = true} -- gives status for LSP as virtual text
 
         -- Telescope
         use {'nvim-lua/popup.nvim', opt = true}
@@ -193,6 +195,8 @@ return require('packer').startup(
         require_plugin('cmp-buffer')
         require_plugin('cmp-path')
         require_plugin('schemastore.nvim')
+        require_plugin('none-ls')
+        require_plugin('fidget.nvim')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzf-native.nvim')
         require_plugin('spellsitter.nvim')
