@@ -6,7 +6,7 @@
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "ruff_lsp", "tsserver", "pylsp", "eslint"},
+    ensure_installed = { "lua_ls", "ruff_lsp", "tsserver", "pyright", "eslint"},
 })
 
 -----
@@ -107,9 +107,26 @@ local handlers = {
 
 
 -- Set up lspconfig here because we need to require mason's lspconfig first, so it makes sure we're doing in order.
+require('lspconfig').tsserver.setup {
+    init_options = {
+        preferences = {
+            importModuleSpecifierPreference = "project-relative",
+        }
+    },
+    codeActionsOnSave = {
+        source = {
+            organizeImports = true
+        }
+    },
+    filetypes = {
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx'
+    }
+}
+
 require('lspconfig').ruff_lsp.setup {}
-require('lspconfig').tsserver.setup {}
-require('lspconfig').pylsp.setup {}
+require('lspconfig').pyright.setup {}
 require('lspconfig').lua_ls.setup {}
 require('lspconfig').eslint.setup {}
 
