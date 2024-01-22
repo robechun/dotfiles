@@ -75,6 +75,7 @@ return require('packer').startup(
         use {"b0o/schemastore.nvim", opt = true}
         use {"nvimtools/none-ls.nvim", opt = true} -- null-ls replacement for now
         use {"j-hui/fidget.nvim", opt = true} -- gives status for LSP as virtual text
+        use {"pmizio/typescript-tools.nvim", opt = true} -- typescript tools, faster tsserver
 
         -- Telescope
         use {'nvim-lua/popup.nvim', opt = true}
@@ -197,6 +198,7 @@ return require('packer').startup(
         require_plugin('schemastore.nvim')
         require_plugin('none-ls')
         require_plugin('fidget.nvim')
+        require_plugin('typescript-tools.nvim')
         require_plugin('telescope.nvim')
         require_plugin('telescope-fzf-native.nvim')
         require_plugin('spellsitter.nvim')

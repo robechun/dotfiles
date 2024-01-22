@@ -6,7 +6,7 @@
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "ruff_lsp", "tsserver", "pyright", "eslint"},
+    ensure_installed = { "lua_ls", "ruff_lsp", "pyright", "eslint"},
 })
 
 -----
@@ -94,6 +94,12 @@ local handlers = {
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
     function (server_name) -- default handler (optional)
+
+        -- We're using typescript-tools for LSP, so we don't want to set up tsserver.
+        if server_name == "tsserver" then
+            return
+        end
+
         require("lspconfig")[server_name].setup {
             on_attach = on_attach
         }
@@ -107,23 +113,23 @@ local handlers = {
 
 
 -- Set up lspconfig here because we need to require mason's lspconfig first, so it makes sure we're doing in order.
-require('lspconfig').tsserver.setup {
-    init_options = {
-        preferences = {
-            importModuleSpecifierPreference = "project-relative",
-        }
-    },
-    codeActionsOnSave = {
-        source = {
-            organizeImports = true
-        }
-    },
-    filetypes = {
-        'typescript',
-        'typescriptreact',
-        'typescript.tsx'
-    }
-}
+--[[ require('lspconfig').tsserver.setup { ]]
+--[[     init_options = { ]]
+--[[         preferences = { ]]
+--[[             importModuleSpecifierPreference = "project-relative", ]]
+--[[         } ]]
+--[[     }, ]]
+--[[     codeActionsOnSave = { ]]
+--[[         source = { ]]
+--[[             organizeImports = true ]]
+--[[         } ]]
+--[[     }, ]]
+--[[     filetypes = { ]]
+--[[         'typescript', ]]
+--[[         'typescriptreact', ]]
+--[[         'typescript.tsx' ]]
+--[[     } ]]
+--[[ } ]]
 
 require('lspconfig').ruff_lsp.setup {}
 require('lspconfig').pyright.setup {}
@@ -132,3 +138,5 @@ require('lspconfig').eslint.setup {}
 
 -- Set up specific handlers after
 require("mason-lspconfig").setup_handlers(handlers)
+
+require("robert.lsp.servers.ts_tools")
