@@ -380,6 +380,12 @@ _G.packer_plugins = {
     path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
+  ["typescript-tools.nvim"] = {
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/robertchung/.local/share/nvim/site/pack/packer/opt/typescript-tools.nvim",
+    url = "https://github.com/pmizio/typescript-tools.nvim"
+  },
   ["vim-devicons"] = {
     loaded = false,
     needs_bufread = false,

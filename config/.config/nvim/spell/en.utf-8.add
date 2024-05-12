@@ -53,3 +53,5 @@ RootStack/!
 addFollowerAsync
 fields/!
 AsyncLoader
+def/!
+makeResourceModuleFromMixin/!

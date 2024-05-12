@@ -88,6 +88,7 @@ return require('packer').startup(
         use {'windwp/nvim-autopairs', opt = true}
 
         -- Debugging
+        use {'nvim-neotest/nvim-nio', opt = true}
         use {'mfussenegger/nvim-dap', opt = true}
         use {'nvim-telescope/telescope-dap.nvim', opt = true}
         use {'theHamsta/nvim-dap-virtual-text', opt = true}
@@ -170,6 +171,7 @@ return require('packer').startup(
         require_plugin('gruvbox-material')
         require_plugin('plenary.nvim')
         require_plugin('nvim-autopairs')
+        require_plugin('nvim-nio');
         require_plugin('nvim-dap')
         require_plugin('telescope-dap.nvim')
         require_plugin('nvim-dap-virtual-text')

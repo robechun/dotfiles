@@ -62,6 +62,7 @@ alias kdp="k describe pod"
 
 alias gpstaging="git push origin HEAD:rchung/staging -f"
 alias gppreprod="git push origin HEAD:preprod -f"
+alias gphqpreprod="git push origin HEAD:hq-preprod -f"
 alias staging="ssh aws-us-staging-1"
 alias staging-eu="ssh aws-eu-staging"
 alias res="npm ci && npm run build && npm run serve"

@@ -31,6 +31,7 @@
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
   default = current
+  autoSetupRemote = true
 
 # For private data (username / github token / etc)
 [include]
@@ -68,3 +69,7 @@
 
 [worktree]
   guessRemote = true
+[diff "sopsdiffer"]
+	textconv = sops -d
+[credential]
+	helper = store
