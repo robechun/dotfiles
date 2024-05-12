@@ -58,6 +58,7 @@ vim.lsp.handlers["textDocument/definition"] = function(_, result, _, _)
     end
 end
 
+-- See: h:mason-lspconfig.setup_handlers()
 local handlers = {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -73,27 +74,6 @@ local handlers = {
     --[[     require("rust-tools").setup {} ]]
     --[[ end, ]]
 }
-
-
-
--- Set up lspconfig here because we need to require mason's lspconfig first, so it makes sure we're doing in order.
---[[ require('lspconfig').tsserver.setup { ]]
---[[     init_options = { ]]
---[[         preferences = { ]]
---[[             importModuleSpecifierPreference = "project-relative", ]]
---[[         } ]]
---[[     }, ]]
---[[     codeActionsOnSave = { ]]
---[[         source = { ]]
---[[             organizeImports = true ]]
---[[         } ]]
---[[     }, ]]
---[[     filetypes = { ]]
---[[         'typescript', ]]
---[[         'typescriptreact', ]]
---[[         'typescript.tsx' ]]
---[[     } ]]
---[[ } ]]
 
 require('lspconfig').ruff_lsp.setup {}
 require('lspconfig').pyright.setup {}

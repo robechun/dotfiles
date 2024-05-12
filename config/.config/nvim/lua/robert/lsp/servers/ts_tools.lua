@@ -12,7 +12,7 @@ require("typescript-tools").setup {
         tsserver_max_memory = 12288
         -- tsserver_logs = "verbose"
     },
-    on_attach = function(client)
+    on_init = function(client)
         client.server_capabilities.semanticTokensProvider = nil
     end
 }
