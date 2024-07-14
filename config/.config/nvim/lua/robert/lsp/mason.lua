@@ -78,7 +78,6 @@ local handlers = {
 require('lspconfig').ruff_lsp.setup {}
 require('lspconfig').pyright.setup {}
 require('lspconfig').lua_ls.setup {}
--- require('lspconfig').eslint.setup {}
 
 -- Set up specific handlers after
 require("mason-lspconfig").setup_handlers(handlers)

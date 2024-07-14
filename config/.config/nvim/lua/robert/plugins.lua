@@ -66,7 +66,7 @@ return require('packer').startup(
 
         -- LSP
         use {'neovim/nvim-lspconfig', opt = true}
-        use {'tami5/lspsaga.nvim', opt = true }
+        use {'nvimdev/lspsaga.nvim', opt = true }
         use {'kabouzeid/nvim-lspinstall', opt = true}
         use {'nvim-lua/lsp-status.nvim', opt = true}
         use {'onsails/lspkind-nvim', opt = true}

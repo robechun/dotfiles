@@ -6,3 +6,4 @@ end
 require("robert.lsp.mason")
 require("robert.lsp.null-ls")
 require("robert.lsp.fidget")
+require("robert.lsp.lspsaga")
