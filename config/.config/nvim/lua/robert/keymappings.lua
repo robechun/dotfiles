@@ -93,7 +93,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.api.nvim_buf_set_keymap(ev.buf, "n", "gr", ":Lspsaga finder<CR>", noremapAndSilentOpts)
     vim.api.nvim_buf_set_keymap(ev.buf, "n", "gp", ":Lspsaga peek_definition<CR>", noremapAndSilentOpts)
     vim.api.nvim_buf_set_keymap(ev.buf, "n", "<leader>gr", ":Lspsaga rename<CR>", noremapAndSilentOpts)
-    vim.api.nvim_buf_set_keymap(ev.buf, "n", "g?", ":Lspsaga diagnostic_jump_next", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "g?", ":Lspsaga diagnostic_jump_next<CR>", noremapAndSilentOpts)
+    vim.api.nvim_buf_set_keymap(ev.buf, "n", "gl", ":lua vim.diagnostic.open_float()<CR>", noremapAndSilentOpts)
     vim.api.nvim_buf_set_keymap(ev.buf, "n", '<leader>f', "<cmd>lua vim.lsp.buf.format({async = true})<CR>", noremapAndSilentOpts)
   end,
 })
