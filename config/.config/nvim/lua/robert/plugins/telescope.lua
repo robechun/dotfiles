@@ -46,10 +46,10 @@ return {
         require('telescope').load_extension('fzf')
     end,
     keys = {
-        { '<C-p>',      project_files,                                                       mode = 'n', silent = true, noremap = true },
-        { '<C-f>',      ':Telescope grep_string({ search = vim.fn.input("Grep For > ")})<CR>', mode = 'n', silent = true, noremap = true },
-        { '<leader>pw', ':Telescope grep_string { search = vim.fn.expand("<cword>") }<CR>',    mode = 'n', silent = true, noremap = true },
-        { '<leader>pb', ':Telescope buffers()<CR>',                                            mode = 'n', silent = true, noremap = true },
+        { '<C-p>',      project_files,                                                                                mode = 'n', silent = true, noremap = true },
+        { '<C-f>',      ':lua require("telescope.builtin").grep_string({ search = vim.fn.input("Grep For > ")})<CR>', mode = 'n', silent = true, noremap = true },
+        { '<leader>pw', ':lua require("telescope.builtin").grep_string { search = vim.fn.expand("<cword>") }<CR>',   mode = 'n', silent = true, noremap = true },
+        { '<leader>pb', ':Telescope buffers()<CR>',                                                                   mode = 'n', silent = true, noremap = true },
 
 
     }
