@@ -19,7 +19,9 @@ return {
         cmp.setup({
             mapping = {
                 ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                    if cmp.visible() and has_words_before() then
+                    if require("copilot.suggestion").is_visible() then
+                        require("copilot.suggestion").accept()
+                    elseif cmp.visible() and has_words_before() then
                         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                     else
                         fallback()
@@ -58,34 +60,6 @@ return {
                 format = lspkind.cmp_format({
                     mode = "symbol",
                     max_width = 50,
-                    symbol_map = {
-                        Text = '  ',
-                        Method = ' ',
-                        Function = ' ',
-                        Constructor = ' ',
-                        Field = ' ﴲ',
-                        Variable = '[]',
-                        Class = ' ',
-                        Interface = ' ﰮ',
-                        Module = ' ',
-                        Property = ' 襁',
-                        Unit = ' ',
-                        Value = '  ',
-                        Enum = ' 練',
-                        Keyword = ' ',
-                        Snippet = ' ',
-                        Color = ' ',
-                        File = ' ',
-                        Reference = ' ',
-                        Folder = ' ',
-                        EnumMember = ' ',
-                        Constant = ' ﲀ',
-                        Struct = ' ﳤ',
-                        Event = ' ',
-                        Operator = ' ',
-                        TypeParameter = ' ',
-                        Copilot = ' '
-                    },
                 })
             }
         })

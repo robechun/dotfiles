@@ -12,15 +12,11 @@ eval "$(fnm env --use-on-cd)"
 # For image.nvim and imagemagick
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 
-# export TERM="xterm-256color"
-export TERM="alacritty"
+export TERM="xterm-256color"
+# export TERM="alacritty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
 export EDITOR='nvim'
-export CANARY_USER='rob'
-
-
-alias ssh="python3 ~/.config/kitty/sshTic.py" 
 
 # vim/tmux
 alias vim="nvim"
@@ -33,6 +29,8 @@ alias tmux='tmux -2'
 
 # kube
 alias k="kubectl"
+alias kp="k get pods"
+alias kdp="k describe pod"
 
 # ssh stuff
 alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
@@ -45,67 +43,8 @@ alias pp="vim package.json"
 alias conf="cd ~/.config/nvim"
 alias nr="npm run"
 
-# going to right folder
-alias ai="cd ~/workspace/front-ai"
-alias aim="cd ~/workspace/worktree/front-ai"
-alias fe="cd ~/workspace/front-client"
-alias fem="cd ~/workspace/worktree/front-client"
-alias be="cd ~/workspace/front"
-alias bem="cd ~/workspace/worktree/front"
-alias inf="cd ~/workspace/front-infra"
-alias infm="cd ~/workspace/front-infra.git/master"
-
-# Front related
-export STAGING_NAMESPACE=rchung
-export PREPROD_USER=rob
-export STAGING_CONTEXT=usw2.staging
-
-alias kp="k get pods"
-alias kdp="k describe pod"
-
-alias gpstaging="git push origin HEAD:rchung/staging -f"
-alias gppreprod="git push origin HEAD:preprod -f"
-alias gphqpreprod="git push origin HEAD:hq-preprod -f"
-alias staging="ssh aws-us-staging-1"
-alias staging-eu="ssh aws-eu-staging"
-alias res="npm ci && npm run build && npm run serve"
-alias single="npm run mocha:single"
-alias merge="npm run merge:prod"
-alias logstagingexp="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-exposed-components' --tail=0"
-alias logstagingwork="stern -n ${STAGING_NAMESPACE} --context ${STAGING_CONTEXT} -l 'app.kubernetes.io/name=front-worker-components' --tail=0"
-alias logpreprod="stern -l 'app.kubernetes.io/name=api' -n front-preprod --tail=0"
-alias tail-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/tail.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
-alias top-slow-logs='npm run ts-node:transpile-only ./elasticsearch/slowlogs/top.ts --prefix ~/workspace/front-infra/scripts/get_es_full_slow_logs.js'
-
-alias logboth="/Users/robertchung/.config/tmux-log-staging.sh"
-
-function staging_get_pod() {
-  kubectl get pod --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -l "$1" -o jsonpath='{.items[0].metadata.name}'
-}
-
-function execute_on_staging() {
-  kubectl exec --context "${STAGING_CONTEXT}" -n "${STAGING_NAMESPACE}" -it $(kubectl get pod -n "${STAGING_NAMESPACE}" --context "${STAGING_CONTEXT}" -l "$1" -o jsonpath='{.items[0].metadata.name}') -- env COLUMNS=$COLUMNS LINES=$LINES ${*:2}
-}
-
-alias bash-exposed="execute_on_staging app.kubernetes.io/name=front-exposed-components bash"
-alias bash-worker="execute_on_staging app.kubernetes.io/name=front-worker-components bash"
-# This alias makes things load slowly
-# alias bash-preprod="kubectl exec -it -n front-preprod $(kubectl get pod -l "app.kubernetes.io/name=api" -o jsonpath='{.items[0].metadata.name}' --field-selector=status.phase=Running -n front-preprod) -- bash"
-alias restart-exposed="execute_on_staging app.kubernetes.io/name=front-exposed-components front-reload"
-alias restart-worker="execute_on_staging app.kubernetes.io/name=front-worker-components front-reload"
-alias restart-both="restart-exposed && restart-worker"
-
-alias staging-debug-workers="staging_debug worker"
-alias staging-debug-exposed="staging_debug exposed"
-
-alias pf-sql="kubectl --context "${STAGING_CONTEXT}" port-forward deployment/mysql 3306"
-alias pf-search-light="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-light-7-cluster 9200"
-alias pf-search-full="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-full-cluster 9200"
-alias pf-analytics="kubectl port-forward --context "${STAGING_CONTEXT}" -n search statefulset/es-analytics-cluster 9200"
-alias run-kibana="docker run -p 5601:5601 -e 'ELASTICSEARCH_HOSTS=http://host.docker.internal:9200' docker.elastic.co/kibana/kibana:$(curl localhost:9200 --silent | jq '.version.number' -r)"
-
-
-alias boga="node ~/workspace/front-infra/scripts/boga.js"
+# github
+alias ghcs="gh copilot suggest"
 
 ZSH_THEME=powerlevel10k/powerlevel10k
 
@@ -174,8 +113,8 @@ COMPLETION_WAITING_DOTS="true"
    man
    macos
    python
-   zsh-syntax-highlighting
-   zsh-autosuggestions
+   # zsh-syntax-highlighting
+   # zsh-autosuggestions
    fnm
 )
 
@@ -214,25 +153,7 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 . "$HOME/.cargo/env"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/robertchung/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/robertchung/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/robertchung/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/robertchung/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-export PATH="/usr/local/opt/llvm/bin:$PATH"

@@ -5,11 +5,6 @@ return {
         'nvim-tree/nvim-web-devicons',
     },
     config = function()
-        require('nvim-treesitter.configs').setup({
-            ensure_installed = { 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'javascript', 'typescript', 'python' },
-            auto_install = true,
-        })
-
         require('lspsaga').setup({
             opts = {
                 symbol_in_winbar = {
@@ -39,6 +34,7 @@ return {
         { "gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>",       mode = 'n', silent = true, noremap = true },
         { "<leader>ca", ":Lspsaga code_action<CR>",                        mode = 'n', silent = true, noremap = true },
         { "gs",         ":Lspsaga signature_help<CR>",                     mode = 'n', silent = true, noremap = true },
+        { "gO",         ":Lspsaga outline<CR>",                            mode = 'n', silent = true, noremap = true },
         { "gr",         ":Lspsaga finder<CR>",                             mode = 'n', silent = true, noremap = true },
         { "gp",         ":Lspsaga peek_definition<CR>",                    mode = 'n', silent = true, noremap = true },
         { "<leader>gr", ":Lspsaga rename<CR>",                             mode = 'n', silent = true, noremap = true },

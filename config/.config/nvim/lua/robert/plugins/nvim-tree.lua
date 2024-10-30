@@ -4,6 +4,9 @@ return {
     opts = {
         disable_netrw = false,
         filters = {
+            exclude = {
+                '.venv'
+            },
             custom = {
                 '.DS_Store',
                 '.idea',
