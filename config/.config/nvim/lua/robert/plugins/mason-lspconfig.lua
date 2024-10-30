@@ -65,7 +65,7 @@ return {
             -- a dedicated handler.
             function(server_name) -- default handler (optional)
                 -- We're using typescript-tools for LSP, so we don't want to set up tsserver.
-                if server_name == "tsserver" then
+                if server_name == "tsserver" or server_name == "ts_ls" then
                     return
                 end
             end,
@@ -81,7 +81,7 @@ return {
 
         -- Set up specific handlers after
         require('mason-lspconfig').setup({
-            ensure_installed = { "lua_ls", "ruff_lsp", "pyright" },
+            ensure_installed = { "lua_ls", "ruff_lsp", "pyright", "ts_ls" },
             handlers = handlers,
         })
 
