@@ -12,12 +12,11 @@ return {
                 '.idea',
                 '.sass-cache',
                 '.git',
-                'node_modules',
                 '.cache'
             }
         },
         git = {
-            ignore = true
+            ignore = false
         }
     },
     keys = {

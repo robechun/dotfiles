@@ -4,8 +4,8 @@ return {
         'nvim-tree/nvim-web-devicons',
     },
     config = function()
-        require'nvim-treesitter.configs'.setup {
-            ensure_installed = { 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'javascript', 'typescript', 'python' },
+        require 'nvim-treesitter.configs'.setup {
+            ensure_installed = { 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'javascript', 'typescript', 'python', 'comment' },
             auto_install = true,
             highlight = {
                 enable = true,

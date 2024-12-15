@@ -75,13 +75,13 @@ return {
             --[[ end, ]]
         }
 
-        require('lspconfig').ruff_lsp.setup {}
+        require('lspconfig').ruff.setup {}
         require('lspconfig').pyright.setup {}
         require('lspconfig').lua_ls.setup {}
 
         -- Set up specific handlers after
         require('mason-lspconfig').setup({
-            ensure_installed = { "lua_ls", "ruff_lsp", "pyright", "ts_ls" },
+            ensure_installed = { "lua_ls", "ruff", "pyright", "ts_ls" },
             handlers = handlers,
         })
 

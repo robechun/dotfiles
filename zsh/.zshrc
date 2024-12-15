@@ -42,6 +42,7 @@ alias tt="vim ~/.tmux.conf.local"
 alias pp="vim package.json"
 alias conf="cd ~/.config/nvim"
 alias nr="npm run"
+alias ww="cd ~/workspace"
 
 # github
 alias ghcs="gh copilot suggest"
