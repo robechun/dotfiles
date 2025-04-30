@@ -42,7 +42,14 @@ alias tt="vim ~/.tmux.conf.local"
 alias pp="vim package.json"
 alias conf="cd ~/.config/nvim"
 alias nr="npm run"
+alias br="bun run"
 alias ww="cd ~/workspace"
+alias p="pnpm"
+alias pr="pnpm run"
+
+alias myholo="cd ~/workspace/myholo"
+alias chat="cd ~/workspace/chat-playground"
+alias hanus="cd ~/workspace/hanus"
 
 # github
 alias ghcs="gh copilot suggest"
@@ -158,3 +165,10 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 . "$HOME/.cargo/env"
+
+# bun completions
+[ -s "/Users/robertchung/.bun/_bun" ] && source "/Users/robertchung/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
