@@ -29,7 +29,6 @@ return {
     end,
     keys = {
         { 'K',          ':Lspsaga hover_doc<CR>',                    mode = 'n', silent = true, noremap = true },
-        { "gd",         "<cmd>lua vim.lsp.buf.definition()<CR>",     mode = 'n', silent = true, noremap = true },
         { "gD",         "<cmd>lua vim.lsp.buf.declaration()<CR>",    mode = 'n', silent = true, noremap = true },
         { "gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>", mode = 'n', silent = true, noremap = true },
         { "<leader>ca", ":Lspsaga code_action<CR>",                  mode = 'n', silent = true, noremap = true },

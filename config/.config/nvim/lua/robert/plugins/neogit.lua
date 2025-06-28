@@ -8,8 +8,6 @@ return {
     },
     config = true,
     keys = {
-        { '<leader>gg', ':Neogit<CR>',                                                    mode = 'n', silent = true, noremap = true },
-        { '<leader>gh', ':lua require"robert.plugin.diffview".diff_history_toggle()<CR>', mode = 'n', silent = true, noremap = true },
-        { '<leader>gb', ':Git blame<CR>',                                                 mode = 'n', silent = true, noremap = true },
+        { '<leader>gg', ':Neogit<CR>', mode = 'n', silent = true, noremap = true },
     }
 }
