@@ -70,13 +70,16 @@ return {
             --[[ end, ]]
         }
 
-        require('lspconfig').ruff.setup {}
-        require('lspconfig').pyright.setup {}
-        require('lspconfig').lua_ls.setup {}
+        -- require('vim.lsp.config').ruff.setup {}
+        -- require('vim.lsp.config').pyright.setup {}
+        -- require('vim.lsp.config').lua_ls.setup {}
+        vim.lsp.enable('ruff')
+        vim.lsp.enable('pyright')
+        vim.lsp.enable('lua_ls')
 
         -- Set up specific handlers after
         require('mason-lspconfig').setup({
-            ensure_installed = { "lua_ls", "ruff", "pyright", "ts_ls" },
+            ensure_installed = { "lua_ls", "ruff", "pyright" },
             handlers = handlers,
         })
 

@@ -8,11 +8,11 @@ return {
                 '.venv'
             },
             custom = {
-                '.DS_Store',
-                '.idea',
-                '.sass-cache',
-                '.git',
-                '.cache'
+                '\\.DS_Store',
+                '\\.idea',
+                '\\.sass-cache',
+                '^\\.git$',
+                '^\\.cache'
             }
         },
         git = {

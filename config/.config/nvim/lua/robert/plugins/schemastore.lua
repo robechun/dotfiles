@@ -4,13 +4,13 @@ return {
         'neovim/nvim-lspconfig',
     },
     config = function()
-        require('lspconfig').jsonls.setup {
+        vim.lsp.config('jsonls', {
             settings = {
                 json = {
                     schemas = require('schemastore').json.schemas(),
                     validate = { enable = true },
                 },
             },
-        }
+        })
     end
 }

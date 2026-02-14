@@ -6,7 +6,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH=/opt/homebrew/opt/llvm@14/bin:$HOME/bin:/usr/local/bin:$PATH:~/.toolbox/bin:/usr/local/opt/python@3.10/bin:$PATH
+export PATH="$PATH:/opt/homebrew/opt/llvm@14/bin"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.toolbox/bin"
+export PATH="$PATH:/usr/local/opt/python@3.10/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 eval "$(fnm env --use-on-cd)"
 
 # For image.nvim and imagemagick
@@ -46,13 +51,17 @@ alias br="bun run"
 alias ww="cd ~/workspace"
 alias p="pnpm"
 alias pr="pnpm run"
+alias c="claude"
+alias sso="aws sso login --profile prod"
 
-alias myholo="cd ~/workspace/myholo"
-alias chat="cd ~/workspace/chat-playground"
-alias hanus="cd ~/workspace/hanus"
+alias jetti="cd ~/workspace/jetti"
 
 # github
 alias ghcs="gh copilot suggest"
+
+# terraform
+export AWS_PROFILE=prod
+alias tf="terraform"
 
 ZSH_THEME=powerlevel10k/powerlevel10k
 
@@ -172,3 +181,15 @@ source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+unalias gwt 2>/dev/null
+gwt() {
+  local dir
+  dir=$(~/.local/bin/gwt-helper "$@") && cd "$dir"
+}

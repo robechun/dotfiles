@@ -21,10 +21,12 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "isort", "black" },
-            javascript = { "prettierd", "prettier", stop_after_first = true },
-            typescript = { "prettierd", "prettier", stop_after_first = true },
-            javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-            typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+            javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+            typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+            javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+            typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+            json = { "biome", "prettierd", "prettier", stop_after_first = true },
+            jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
         },
         -- Set default options
         default_format_opts = {
@@ -36,6 +38,20 @@ return {
         formatters = {
             shfmt = {
                 prepend_args = { "-i", "2" },
+            },
+            biome = {
+                require_cwd = true,
+                cwd = function(self, ctx)
+                    return require("conform.util").root_file({
+                        "biome.json",
+                        "biome.jsonc",
+                    })(self, ctx)
+                end,
+                args = {
+                    "format",
+                    "--stdin-file-path",
+                    "$FILENAME",
+                },
             },
         },
     },
