@@ -15,6 +15,7 @@ export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:$HOME/.toolbox/bin"
 export PATH="$PATH:/usr/local/opt/python@3.10/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:$HOME/.local/bin"
 eval "$(fnm env --use-on-cd)"
 
 # For image.nvim and imagemagick
@@ -41,6 +42,11 @@ alias kp="k get pods"
 alias kdp="k describe pod"
 
 # ssh stuff
+if [ -z "$SSH_AUTH_SOCK" ]; then
+  eval "$(ssh-agent -s)" > /dev/null 2>&1
+fi
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
+
 alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
 alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.amazonaws.com"
 
