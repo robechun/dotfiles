@@ -12,6 +12,7 @@ end
 -- leader.
 vim.g.mapleader = ','
 vim.g.maplocalleader = '\\'
+
 -- vim.cmd('let g:python3_host_prog = \'/usr/bin/python3\'') -- where is python3
 -- vim.cmd("let g:python3_host_prog = $HOME . '/.local/venv/nvim/bin/python'")
 vim.cmd('set novisualbell')

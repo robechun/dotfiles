@@ -21,7 +21,7 @@ eval "$(fnm env --use-on-cd)"
 # For image.nvim and imagemagick
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 
-export TERM="xterm-256color"
+# export TERM="xterm-ghostty"
 # export TERM="alacritty"
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$USER/.oh-my-zsh"
@@ -49,6 +49,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
 
 alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
 alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.amazonaws.com"
+alias mini="ssh robert@contextors-mac-mini"
 
 # misc other commands
 alias zz="vim ~/.zshrc"
@@ -60,10 +61,10 @@ alias br="bun run"
 alias ww="cd ~/workspace"
 alias p="pnpm"
 alias pr="pnpm run"
-alias c="claude"
+alias c="claude --dangerously-skip-permissions"
 alias sso="aws sso login --profile prod"
 
-alias jetti="cd ~/workspace/jetti"
+alias cc="cd ~/workspace/charcoal"
 
 # github
 alias ghcs="gh copilot suggest"
@@ -202,3 +203,6 @@ gwt() {
   local dir
   dir=$(~/.local/bin/gwt-helper "$@") && cd "$dir"
 }
+
+# Shell completion
+autoload -U compinit; compinit

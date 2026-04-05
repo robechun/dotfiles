@@ -5,6 +5,9 @@ return {
         'nvim-tree/nvim-web-devicons',
     },
     main = 'nvim-treesitter',
+    init = function()
+        vim.treesitter.language.register('markdown', 'mdx')
+    end,
     opts = {
         ensure_installed = { 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'javascript', 'typescript', 'python', 'comment' },
         auto_install = true,
