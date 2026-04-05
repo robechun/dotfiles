@@ -8,7 +8,11 @@ fi
 # Homebrew shell environment (sets HOMEBREW_PREFIX, PATH, etc.)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+
 # If you come from bash you might have to change your $PATH.
+export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/opt/homebrew/opt/llvm@14/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/bin"
@@ -47,8 +51,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
 
-alias burn="ssh -i ~/personal/burnmoney_ec2.pem ec2-user@10.0.96.61"
-alias ghost="ssh -i ~/ghost-kp.pem ubuntu@ec2-44-228-159-243.us-west-2.compute.amazonaws.com"
 alias mini="ssh robert@contextors-mac-mini"
 
 # misc other commands
@@ -188,9 +190,6 @@ source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # bun completions
 [ -s "/Users/robertchung/.bun/_bun" ] && source "/Users/robertchung/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
