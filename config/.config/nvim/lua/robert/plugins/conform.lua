@@ -27,6 +27,8 @@ return {
             typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
             json = { "biome", "prettierd", "prettier", stop_after_first = true },
             jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
+            css = { "biome", "prettierd", "prettier", stop_after_first = true },
+            astro = { "prettier", "prettierd", stop_after_first = true },
         },
         -- Set default options
         default_format_opts = {

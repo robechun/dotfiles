@@ -32,4 +32,17 @@ require("lazy").setup({
     install = { colorscheme = { "habamax" } },
     -- automatically check for plugin updates
     checker = { enabled = false },
+    change_detection = { notify = false },
+    performance = {
+        rtp = {
+            -- netrw is kept because nvim-tree is configured with disable_netrw = false
+            disabled_plugins = {
+                "gzip",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })

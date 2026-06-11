@@ -1,65 +1,56 @@
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
-local function opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
-end
-
 -- Leader key -> ','
 --
--- In general, it's a good idea to opt(this early in your config, because otherwise
--- if you have any mappings you opt(BEFORE doing this, they will be set to the OLD
+-- In general, it's a good idea to set this early in your config, because otherwise
+-- if you have any mappings you set BEFORE doing this, they will be set to the OLD
 -- leader.
 vim.g.mapleader = ','
 vim.g.maplocalleader = '\\'
 
--- vim.cmd('let g:python3_host_prog = \'/usr/bin/python3\'') -- where is python3
--- vim.cmd("let g:python3_host_prog = $HOME . '/.local/venv/nvim/bin/python'")
-vim.cmd('set novisualbell')
+local opt = vim.opt
 
-vim.o.fileencoding = 'utf-8'
+opt.visualbell = false
+opt.fileencoding = 'utf-8'
 
 -- highlighting
 -- example:  vim.cmd([[highlight BufferCurrent guibg=#5fd7ff guifg=#282a2e]])
 
 local indent = 4
 
--- Buffer Scope
-opt('b', 'expandtab', true)                          -- Use spaces instead of tabs
-opt('b', 'shiftwidth', indent)                       -- Size of an indent
-opt('b', 'smartindent', true)                        -- Insert indents automatically
-opt('b', 'tabstop', indent)                          -- Number of spaces tabs count for
+-- Indentation
+opt.expandtab = true                         -- Use spaces instead of tabs
+opt.shiftwidth = indent                      -- Size of an indent
+opt.smartindent = true                       -- Insert indents automatically
+opt.tabstop = indent                         -- Number of spaces tabs count for
 
--- Global Scope
-opt('o', 'cursorline', true)                         -- Adds a cursorline
-opt('o', 'updatetime', 400)                          -- Update time for buffer changes and stuff
-opt('o', 'spell', true)                              -- Add spelling checks
-opt('o', 'syntax', 'on')                             -- Allow syntax highlight
-opt('o', 'clipboard', 'unnamedplus')                 -- Clipboard to be normal stuff
-opt('o', 'shiftround', true)                         -- Shift works with >>
-opt('o', 'ignorecase', true)                         -- Ignore case when searching
-opt('o', 'hlsearch', true)                           -- Highlight search
-opt('o', 'incsearch', true)                          -- Include search as you type
-opt('o', 'scrolloff', 8)                             -- Lines of context
-opt('o', 'sidescrolloff', 8)                         -- Columns of context
-opt('o', 'smartcase', true)                          -- Don't ignore case with capitals
-opt('o', 'splitbelow', true)                         -- Put new windows below current
-opt('o', 'splitright', true)                         -- Put new windows right of current
-opt('o', 'termguicolors', true)                      -- True color support
-opt('o', 'wildmode', 'list:longest')                 -- Command-line completion mode
-opt('o', 'winbl', 10)                                -- Set floating window to be slightly transparent
-opt('o', 'cmdheight', 1)                             -- Only one lne for commmand line
-opt('o', 'mouse', 'a')                               -- Set floating window to be slightly transparent
-opt('o', 'completeopt', 'menu,menuone,noselect')     -- Needed for nvim-compe
+-- UI
+opt.cursorline = true                        -- Adds a cursorline
+opt.updatetime = 400                         -- Update time for buffer changes and stuff
+opt.spell = true                             -- Add spelling checks
+opt.clipboard = 'unnamedplus'                -- Clipboard to be normal stuff
+opt.shiftround = true                        -- Shift works with >>
+opt.ignorecase = true                        -- Ignore case when searching
+opt.hlsearch = true                          -- Highlight search
+opt.incsearch = true                         -- Include search as you type
+opt.scrolloff = 8                            -- Lines of context
+opt.sidescrolloff = 8                        -- Columns of context
+opt.smartcase = true                         -- Don't ignore case with capitals
+opt.splitbelow = true                        -- Put new windows below current
+opt.splitright = true                        -- Put new windows right of current
+opt.termguicolors = true                     -- True color support
+opt.wildmode = 'list:longest'                -- Command-line completion mode
+opt.winblend = 10                            -- Set floating window to be slightly transparent
+opt.cmdheight = 1                            -- Only one line for command line
+opt.mouse = 'a'                              -- Enable mouse support
+opt.completeopt = 'menu,menuone,noselect'    -- Needed for nvim-cmp
 
-  -- Folding
-opt('o', 'foldmethod', 'expr')                       -- Use the expr that I'm settin below as fold method
-opt('o', 'foldexpr', 'nvim_treesitter#foldexpr()')   -- Folding using treesitter
-opt('o', 'foldcolumn', '1')                          -- Show foldcolumn; if so, how
-opt('o', 'foldlevelstart', 99)                       -- Start with no folds closed
-opt('o', 'signcolumn', 'yes:1')                      -- Signs column; and how wide
+-- Folding
+opt.foldmethod = 'expr'                            -- Use the expr below as fold method
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'   -- Folding using treesitter
+opt.foldcolumn = '1'                               -- Show foldcolumn; if so, how
+opt.foldlevelstart = 99                            -- Start with no folds closed
+opt.signcolumn = 'yes:1'                           -- Signs column; and how wide
 
--- Window Scope
-opt('w', 'list', true)                               -- Show some invisible characters (tabs...)
-opt('w', 'number', true)                             -- Print line number
-opt('w', 'relativenumber', false)                    -- Relative line numbers
+-- Window
+opt.list = true                              -- Show some invisible characters (tabs...)
+opt.number = true                            -- Print line number
+opt.relativenumber = false                   -- Relative line numbers

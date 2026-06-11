@@ -1,19 +1,22 @@
 return {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
     },
-    automatic_enable = false,
-    config = function()
-        -- Need to require mason before setting everything up
-        require('mason').setup()
+    opts = {
+        ensure_installed = { "lua_ls", "ruff", "pyright" },
+        -- v2 auto-enables every mason-installed server; typescript-tools
+        -- provides the TS LSP, so never let ts_ls start alongside it.
+        automatic_enable = {
+            exclude = { "ts_ls" },
+        },
+    },
+    config = function(_, opts)
+        require("mason-lspconfig").setup(opts)
 
-        -----
-        -- Set up diagnostics
-        local config = {
-            -- disable virtual text
+        vim.diagnostic.config({
             virtual_text = true,
             update_in_insert = true,
             underline = true,
@@ -28,62 +31,12 @@ return {
             },
             signs = {
                 text = {
-                    [vim.diagnostic.severity.ERROR] = "",
-                    [vim.diagnostic.severity.WARN] = "",
-                    [vim.diagnostic.severity.HINT] = "",
-                    [vim.diagnostic.severity.INFO] = "",
+                    [vim.diagnostic.severity.ERROR] = "",
+                    [vim.diagnostic.severity.WARN] = "",
+                    [vim.diagnostic.severity.HINT] = "",
+                    [vim.diagnostic.severity.INFO] = "",
                 },
-            }
-        }
-        vim.diagnostic.config(config)
-
-
-        -----
-        -- This makes it so that we jump directly to the first available definition every time.
-        ---@diagnostic disable-next-line: duplicate-set-field
-        vim.lsp.handlers["textDocument/definition"] = function(_, result, _, _)
-            if not result or vim.tbl_isempty(result) then
-                return
-            end
-
-            if vim.tbl_islist(result) then
-                vim.lsp.util.jump_to_location(result[1])
-            else
-                vim.lsp.util.jump_to_location(result)
-            end
-        end
-
-        -- See: h:mason-lspconfig.setup_handlers()
-        local handlers = {
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function(server_name) -- default handler (optional)
-                -- We're using typescript-tools for LSP, so we don't want to set up tsserver.
-                if server_name == "tsserver" or server_name == "ts_ls" then
-                    return
-                end
-            end,
-            -- Next, you can provide targeted overrides for specific servers. E.g.:
-            --[[ ["rust_analyzer"] = function () ]]
-            --[[     require("rust-tools").setup {} ]]
-            --[[ end, ]]
-        }
-
-        -- require('vim.lsp.config').ruff.setup {}
-        -- require('vim.lsp.config').pyright.setup {}
-        -- require('vim.lsp.config').lua_ls.setup {}
-        vim.lsp.enable('ruff')
-        vim.lsp.enable('pyright')
-        vim.lsp.enable('lua_ls')
-
-        -- Set up specific handlers after
-        require('mason-lspconfig').setup({
-            ensure_installed = { "lua_ls", "ruff", "pyright" },
-            handlers = handlers,
+            },
         })
-
-
-        require("robert.plugins.typescript-tools")
-    end
+    end,
 }

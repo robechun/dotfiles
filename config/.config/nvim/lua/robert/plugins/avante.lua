@@ -33,15 +33,10 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
-        --- The below dependencies are optional,
-        "echasnovski/mini.pick",     -- for file_selector provider mini.pick
-        "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-        "hrsh7th/nvim-cmp",          -- autocompletion for avante commands and mentions
-        "ibhagwan/fzf-lua",          -- for file_selector provider fzf
-        "stevearc/dressing.nvim",    -- for input provider dressing
-        "folke/snacks.nvim",         -- for input provider snacks
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-        "zbirenbaum/copilot.lua",    -- for providers='copilot'
+        "nvim-telescope/telescope.nvim", -- file_selector provider
+        "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+        "stevearc/dressing.nvim",        -- input provider
+        "nvim-tree/nvim-web-devicons",
         {
             -- support for image pasting
             "HakonHarnes/img-clip.nvim",
@@ -59,13 +54,7 @@ return {
                 },
             },
         },
-        {
-            -- Make sure to set this up properly if you have lazy=true
-            'MeanderingProgrammer/render-markdown.nvim',
-            opts = {
-                file_types = { "markdown", "mdx", "Avante" },
-            },
-            ft = { "markdown", "mdx", "Avante" },
-        },
+        -- configured in render-markdown.lua
+        "MeanderingProgrammer/render-markdown.nvim",
     },
 }

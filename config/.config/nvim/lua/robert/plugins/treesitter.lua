@@ -1,13 +1,10 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    dependencies = {
-        'nvim-tree/nvim-web-devicons',
-    },
-    main = 'nvim-treesitter',
-    init = function()
-        vim.treesitter.language.register('markdown', 'mdx')
-    end,
+    event = { 'BufReadPre', 'BufNewFile' },
+    -- On the master branch, setup opts go to the configs module —
+    -- require('nvim-treesitter').setup() takes no arguments.
+    main = 'nvim-treesitter.configs',
     opts = {
         ensure_installed = { 'lua', 'vim', 'vimdoc', 'markdown', 'markdown_inline', 'javascript', 'typescript', 'python', 'comment' },
         auto_install = true,

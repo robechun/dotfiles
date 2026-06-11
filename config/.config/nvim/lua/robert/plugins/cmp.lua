@@ -1,5 +1,6 @@
 return {
     'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
@@ -8,7 +9,7 @@ return {
     },
     config = function()
         local has_words_before = function()
-            if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+            if vim.bo[0].buftype == "prompt" then return false end
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
         end
@@ -18,15 +19,13 @@ return {
 
         cmp.setup({
             mapping = {
-                ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                    if require("copilot.suggestion").is_visible() then
-                        require("copilot.suggestion").accept()
-                    elseif cmp.visible() and has_words_before() then
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() and has_words_before() then
                         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                     else
                         fallback()
                     end
-                end),
+                end, { 'i', 's' }),
                 ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
                 ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
                 ["<C-Space>"] = cmp.mapping({ i = cmp.mapping.complete() }),
@@ -38,18 +37,11 @@ return {
             },
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                --[[ { name = 'copilot' }, ]]
                 { name = 'buffer',  keyword_length = 3 },
                 { name = 'path',    max_item_count = 10 },
             }),
             experimental = {
                 ghost_text = true
-            },
-
-            completion = {
-                border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-                scrollbar = "║",
             },
             window = {
                 documentation = { border = "rounded", scrollbar = "║" },
@@ -64,5 +56,4 @@ return {
             }
         })
     end
-
 }

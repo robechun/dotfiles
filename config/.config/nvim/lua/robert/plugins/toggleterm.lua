@@ -23,7 +23,7 @@ return {
     },
     keys = {
         { '<Esc>',         '<C-\\><C-n>',                                             mode = 't', silent = true, noremap = true },
-        { 'C-t',           ':ToggleTerm dir=git_dir direction=horizontal<CR>',        mode = 'n', silent = true, noremap = true },
+        { '<C-t>',         ':ToggleTerm dir=git_dir direction=horizontal<CR>',        mode = 'n', silent = true, noremap = true },
         { '<leader><C-t>', ':2ToggleTerm size=90 dir=git_dir direction=vertical<CR>', mode = 'n', silent = true, noremap = true },
     }
 }
