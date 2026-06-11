@@ -15,12 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
--- Make sure to setup all the global settings beforehand
-require('robert.settings')
-require('robert.keymappings')
-
-
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
