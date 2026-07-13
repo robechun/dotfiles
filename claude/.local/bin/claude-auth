@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Switch Claude Code between Max subscription and API-key billing.
+
+Claude Code (v2.1.207, fn HO) resolves credentials in this order:
+  ANTHROPIC_API_KEY (env)  ->  apiKeyHelper  ->  OAuth subscription
+An env var is only honoured when its last-20-char fingerprint is in
+~/.claude.json customApiKeyResponses.approved -- EXCEPT non-interactive
+runs (`claude -p`), which skip that gate. To avoid surprise API billing we
+never export ANTHROPIC_API_KEY at all and drive everything through
+apiKeyHelper, which has no such gate and no non-interactive bypass:
+
+  api mode : settings.json gets `apiKeyHelper: cat ~/.claude/anthropic-key`
+  sub mode : the apiKeyHelper key is removed -> falls through to OAuth
+
+Note: once apiKeyHelper is set Claude never falls back to OAuth, so sub mode
+must remove the setting entirely -- an empty helper would mean *no* auth.
+
+Portable across machines: all paths are HOME-relative. Needs python3 and a
+key file at ~/.claude/anthropic-key (chmod 600, not in version control).
+"""
+import json
+import os
+import sys
+
+HOME = os.path.expanduser("~")
+SETTINGS = os.path.join(HOME, ".claude", "settings.json")
+KEYFILE = os.path.join(HOME, ".claude", "anthropic-key")
+HELPER = f"cat {KEYFILE}"
+
+
+def load(path):
+    with open(path) as f:
+        return json.load(f)
+
+
+def save(path, data):
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2)
+    os.replace(tmp, path)
+
+
+def mode():
+    try:
+        return "api" if load(SETTINGS).get("apiKeyHelper") else "sub"
+    except FileNotFoundError:
+        return "sub"
+
+
+def set_api():
+    if not os.path.exists(KEYFILE):
+        sys.exit(f"claude-auth: no key file at {KEYFILE} (create it, chmod 600)")
+    s = load(SETTINGS)
+    s["apiKeyHelper"] = HELPER
+    save(SETTINGS, s)
+
+
+def set_sub():
+    s = load(SETTINGS)
+    s.pop("apiKeyHelper", None)
+    save(SETTINGS, s)
+
+
+def report():
+    m = mode()
+    if m == "api":
+        print("mode: API key  (billed to API credits)")
+    else:
+        print("mode: subscription  (billed to Claude Max)")
+    return m
+
+
+USAGE = "usage: claude-auth [api|sub|toggle|status]"
+
+
+def main():
+    arg = (sys.argv[1] if len(sys.argv) > 1 else "status").lower()
+    if arg in ("-h", "--help"):
+        print(USAGE)
+        return
+    if arg in ("api", "on"):
+        set_api()
+    elif arg in ("sub", "off"):
+        set_sub()
+    elif arg in ("toggle", "t"):
+        set_sub() if mode() == "api" else set_api()
+    elif arg != "status":
+        sys.exit(USAGE)
+
+    report()
+    if arg != "status":
+        print("restart Claude to apply; verify with: claude auth status")
+
+
+if __name__ == "__main__":
+    main()
