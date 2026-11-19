@@ -5,30 +5,42 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Homebrew shell environment (sets HOMEBREW_PREFIX, PATH, etc.)
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# This file runs on the Mac and on Linux exe.dev boxes (stowed there by
+# ~/.config/charcoal/exe-personal-setup.sh). Mac-only lines go in IS_MAC blocks.
+if [[ $OSTYPE == darwin* ]]; then IS_MAC=1; else IS_MAC=; fi
+
+if [[ -n $IS_MAC ]]; then
+  # Homebrew shell environment (sets HOMEBREW_PREFIX, PATH, etc.)
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  export PATH="$PATH:/opt/homebrew/opt/llvm@14/bin"
+  export PATH="$PATH:/usr/local/opt/python@3.10/bin"
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive)"
+  # For image.nvim and imagemagick
+  export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
+else
+  # exe.dev box: its environment (nvm, gh, Claude token, AWS role) lives in
+  # ~/.profile, written by charcoal-base in sh syntax.
+  emulate sh -c '. "$HOME/.profile"'
+  # Every box is a clone of the same snapshot; don't prompt to update on each.
+  zstyle ':omz:update' mode disabled
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 
 # If you come from bash you might have to change your $PATH.
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="$PATH:/opt/homebrew/opt/llvm@14/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:$HOME/.toolbox/bin"
-export PATH="$PATH:/usr/local/opt/python@3.10/bin"
-export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$PATH:$HOME/.local/bin"
-eval "$(fnm env --use-on-cd --version-file-strategy=recursive)"
-
-# For image.nvim and imagemagick
-export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
+command -v go >/dev/null && export PATH="$PATH:$(go env GOPATH)/bin"
+# Before the system paths on Linux, where the image ships an old nvim in /usr/bin.
+if [[ -n $IS_MAC ]]; then export PATH="$PATH:$HOME/.local/bin"; else export PATH="$HOME/.local/bin:$PATH"; fi
 
 # export TERM="xterm-ghostty"
 # export TERM="alacritty"
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/$USER/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export EDITOR='nvim'
 
 # vim/tmux
@@ -46,10 +58,12 @@ alias kp="k get pods"
 alias kdp="k describe pod"
 
 # ssh stuff
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  eval "$(ssh-agent -s)" > /dev/null 2>&1
+if [[ -n $IS_MAC ]]; then
+  if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)" > /dev/null 2>&1
+  fi
+  ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
 fi
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
 
 alias mini="ssh mini"
 
@@ -63,8 +77,8 @@ alias br="bun run"
 alias ww="cd ~/workspace"
 alias p="pnpm"
 alias pr="pnpm run"
-alias c="claude --dangerously-skip-permissions"
-# alias c="jaynshare claude --dangerously-skip-permissions"
+# alias c="claude --dangerously-skip-permissions"
+alias c="jaynshare claude --dangerously-skip-permissions"
 alias co="jaynshare codex --yolo"
 alias sso="aws sso login --profile prod"
 
@@ -74,7 +88,8 @@ alias cc="cd ~/workspace/charcoal"
 alias ghcs="gh copilot suggest"
 
 # terraform
-export AWS_PROFILE=prod
+# Mac only: a box's AWS identity comes from its tier's role (~/.profile).
+[[ -n $IS_MAC ]] && export AWS_PROFILE=prod
 alias tf="terraform"
 
 ZSH_THEME=powerlevel10k/powerlevel10k
@@ -142,12 +157,11 @@ COMPLETION_WAITING_DOTS="true"
  plugins=(
    git
    man
-   macos
    python
    # zsh-syntax-highlighting
    # zsh-autosuggestions
-   fnm
 )
+[[ -n $IS_MAC ]] && plugins+=(macos fnm)
 
 # No autocorrect on shell
 unsetopt correct
@@ -184,13 +198,15 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Homebrew's share dir on the Mac, apt's on Linux.
+ZSH_PLUGIN_SHARE=${HOMEBREW_PREFIX:-/usr}/share
+source $ZSH_PLUGIN_SHARE/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_PLUGIN_SHARE/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # bun completions
-[ -s "/Users/robertchung/.bun/_bun" ] && source "/Users/robertchung/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 
 # The next line updates PATH for the Google Cloud SDK.
