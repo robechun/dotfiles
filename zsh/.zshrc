@@ -207,5 +207,3 @@ gwt() {
 
 # Shell completion
 autoload -U compinit; compinit
-
-export PARALLEL_API_KEY="o-c7btm_LaKJ6RK-JoYTN-CME3VFo_Ey_k9xVw7g"
