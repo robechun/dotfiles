@@ -20,7 +20,7 @@ export PATH="$PATH:$HOME/.toolbox/bin"
 export PATH="$PATH:/usr/local/opt/python@3.10/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:$HOME/.local/bin"
-eval "$(fnm env --use-on-cd)"
+eval "$(fnm env --use-on-cd --version-file-strategy=recursive)"
 
 # For image.nvim and imagemagick
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
@@ -51,7 +51,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null
 
-alias mini="ssh robert@contextors-mac-mini"
+alias mini="ssh mini"
 
 # misc other commands
 alias zz="vim ~/.zshrc"
@@ -64,6 +64,8 @@ alias ww="cd ~/workspace"
 alias p="pnpm"
 alias pr="pnpm run"
 alias c="claude --dangerously-skip-permissions"
+# alias c="jaynshare claude --dangerously-skip-permissions"
+alias co="jaynshare codex --yolo"
 alias sso="aws sso login --profile prod"
 
 alias cc="cd ~/workspace/charcoal"
@@ -205,3 +207,5 @@ gwt() {
 
 # Shell completion
 autoload -U compinit; compinit
+
+export PARALLEL_API_KEY="o-c7btm_LaKJ6RK-JoYTN-CME3VFo_Ey_k9xVw7g"

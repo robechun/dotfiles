@@ -1,14 +1,16 @@
 return {
-    'norcalli/nvim-colorizer.lua',
+    'catgoose/nvim-colorizer.lua',
     ft = { 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'html' },
     opts = {
-        'css',
-        'javascript',
-        'typescript',
-        'javascriptreact',
-        'typescriptreact',
-        html = {
-            mode = 'foreground',
-        }
-    }
+        filetypes = {
+            'css',
+            'javascript',
+            'typescript',
+            'javascriptreact',
+            'typescriptreact',
+            html = {
+                mode = 'foreground',
+            },
+        },
+    },
 }
